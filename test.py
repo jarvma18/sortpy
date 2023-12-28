@@ -7,6 +7,7 @@ class TestClass(unittest.TestCase):
     testFile = 'short-text.txt'
     expectedValue = 'Short text'
     self.assertEqual(expectedValue, readFile(testFile))
+
   def test_sortLexiographically(self):
     testData = 'a\nb\nc'
     expectedValue = ['a', 'b', 'c']
