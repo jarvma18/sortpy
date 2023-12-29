@@ -32,7 +32,18 @@ def readFileAndSortContent(fileName):
   sortedFileContent = sortLexiographically(rawFileContent)
   return sortedFileContent;
 
-# def readPassedArguments(arguments):
+def readPassedArguments(arguments):
+  if len(arguments) < 2:
+    raise Exception('Too few arguments, provide at least file name')
+  lastArgument = arguments[len(arguments) - 1]
+  argumentObject = {
+    'fileName': lastArgument,
+    'unique': False
+  }
+  for i in arguments:
+    if i == '-u':
+      argumentObject['unique'] = True
+  return argumentObject
 
 sortedContent = readFileAndSortContent(sys.argv[1])
 printWordsFromArray(sortedContent)
