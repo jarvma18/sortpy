@@ -6,9 +6,19 @@ def printWordsFromArray(words):
   return
 
 def sortLexiographically(contentToSort):
-  sortedContent = contentToSort.split('\n')
-  sortedContent.sort()
-  return sortedContent
+  contentToSort.sort()
+  return contentToSort
+
+def clearDuplicatedWords(contentToClear):
+  listOfUniqueWords = []
+  for i in contentToClear:
+    if i not in listOfUniqueWords:
+      listOfUniqueWords.append(i)
+  return listOfUniqueWords
+
+def splitWordsToArray(contentToSplit):
+  splittedContent = contentToSplit.split('\n')
+  return splittedContent
 
 def openFile(fileName):
   try:
@@ -27,24 +37,35 @@ def readFile(fileName):
   else:
     return
 
-def readFileAndSortContent(fileName):
-  rawFileContent = readFile(fileName)
-  sortedFileContent = sortLexiographically(rawFileContent)
+def readFileAndSortContent(fileName, isUnique):
+  fileContent = readFile(fileName)
+  fileContentArray = splitWordsToArray(fileContent)
+  if (isUnique):
+    fileContentArray = clearDuplicatedWords(fileContentArray)
+  sortedFileContent = sortLexiographically(fileContentArray)
   return sortedFileContent;
 
-def readPassedArguments(arguments):
+def checkArgumentLen(arguments):
   if len(arguments) < 2:
     raise Exception('Too few arguments, provide at least file name')
+  else:
+    return
+
+def readPassedArguments(arguments):
   lastArgument = arguments[len(arguments) - 1]
   argumentObject = {
     'fileName': lastArgument,
-    'unique': False
+    'isUnique': False
   }
   for i in arguments:
     if i == '-u':
-      argumentObject['unique'] = True
+      argumentObject['isUnique'] = True
   return argumentObject
 
-sortedContent = readFileAndSortContent(sys.argv[1])
+checkArgumentLen(sys.argv)
+arguments = readPassedArguments(sys.argv)
+fileName = arguments['fileName']
+isUnique = arguments['isUnique']
+sortedContent = readFileAndSortContent(fileName, isUnique)
 printWordsFromArray(sortedContent)
 
