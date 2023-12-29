@@ -16,6 +16,11 @@ def readFile(fileName):
   file.close()
   return fileContent
 
-rawFileContent = readFile(sys.argv[1])
-sortedFileContent = sortLexiographically(rawFileContent)
-printWordsFromArray(sortedFileContent)
+def readFileAndSortContent(fileName):
+  rawFileContent = readFile(fileName)
+  sortedFileContent = sortLexiographically(rawFileContent)
+  return sortedFileContent;
+
+sortedContent = readFileAndSortContent(sys.argv[1])
+printWordsFromArray(sortedContent)
+
