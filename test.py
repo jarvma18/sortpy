@@ -61,10 +61,16 @@ class TestClass(unittest.TestCase):
     sortedData = sortLexiographically(testData)
     self.assertEqual(expectedValue, sortedData)
 
-  def test_readFileAndSortContent(self):
+  def test_readFileAndSortContentWithFalseUniqueness(self):
     testFile: str = TEST_FILE_3
-    expectedValue: list = TEST_DATA_1
+    expectedValue: list = EXCEPTED_4
     readAndSortedContent = readFileAndSortContent(testFile, False)
+    self.assertEqual(expectedValue, readAndSortedContent)
+
+  def test_readFileAndSortContentWithTrueUniqueness(self):
+    testFile: str = TEST_FILE_3
+    expectedValue: list = EXCEPTED_3
+    readAndSortedContent = readFileAndSortContent(testFile, True)
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_clearDuplicatedWords(self):
