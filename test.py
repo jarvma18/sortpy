@@ -52,25 +52,25 @@ class TestClass(unittest.TestCase):
   def test_readFile(self):
     testFile: str = TEST_FILE_2
     expectedValue: str = EXCEPTED_2
-    readFileContent = readFile(testFile)
+    readFileContent: str = readFile(testFile)
     self.assertEqual(expectedValue, readFileContent)
 
   def test_sortLexiographically(self):
     testData: list = TEST_DATA_2
     expectedValue: list = TEST_DATA_1
-    sortedData = lexiographicSort(testData)
+    sortedData: list = lexiographicSort(testData)
     self.assertEqual(expectedValue, sortedData)
 
   def test_readFileAndSortContentWithFalseUniqueness(self):
     testFile: str = TEST_FILE_3
     expectedValue: list = EXCEPTED_4
-    readAndSortedContent = readFileAndSortContent(testFile, False)
+    readAndSortedContent: list = readFileAndSortContent(testFile, False)
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_readFileAndSortContentWithTrueUniqueness(self):
     testFile: str = TEST_FILE_3
     expectedValue: list = EXCEPTED_3
-    readAndSortedContent = readFileAndSortContent(testFile, True)
+    readAndSortedContent: list = readFileAndSortContent(testFile, True)
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_clearDuplicatedWords(self):
@@ -82,7 +82,7 @@ class TestClass(unittest.TestCase):
   def test_splitWordsToArray(self):
     testData: str = TEST_DATA_3
     expectedValue: list = EXCEPTED_4
-    wordsInArray = splitWordsToArray(testData)
+    wordsInArray: list = splitWordsToArray(testData)
     self.assertEqual(expectedValue, wordsInArray)
 
   def test_checkArgumentLenWithTooFewArgs(self):
@@ -94,11 +94,11 @@ class TestClass(unittest.TestCase):
   def test_readPassedArgumentsFilenameIsProvided(self):
     testData: list = TEST_DATA_5
     expectedValue: dict = EXCEPTED_5
-    argumentsObject = readPassedArguments(testData)
+    argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 
   def test_readPassedArgumentsFilenameAndUniqueIsProvided(self):
     testData: list = TEST_DATA_6
     expectedValue: dict = EXCEPTED_6
-    argumentsObject = readPassedArguments(testData)
+    argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
