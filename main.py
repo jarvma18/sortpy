@@ -5,7 +5,10 @@ def printWordsFromArray(words: list):
     print(i)
   return
 
-def sortLexiographically(contentToSort: list):
+def radixSort(contentToSort: list):
+  placeholder = 1
+
+def lexiographicSort(contentToSort: list):
   contentToSort.sort()
   return contentToSort
 
@@ -42,7 +45,7 @@ def readFileAndSortContent(fileName: str, isUnique: bool):
   fileContentArray: list = splitWordsToArray(fileContent)
   if (isUnique):
     fileContentArray: list = clearDuplicatedWords(fileContentArray)
-  sortedFileContent: list = sortLexiographically(fileContentArray)
+  sortedFileContent: list = lexiographicSort(fileContentArray)
   return sortedFileContent;
 
 def checkArgumentLen(arguments: list):
