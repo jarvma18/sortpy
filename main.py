@@ -20,8 +20,24 @@ def createRadixBuckets(contentToCreateBucketsWith: list):
 def radixSort(contentToSort: list):
   placeholder = 1
 
-def lexiographicSort(contentToSort: list):
-  contentToSort.sort()
+def lexicographicSort(contentToSort: list):
+  for i in range(len(contentToSort)):
+    valueToCompare = contentToSort[i]
+    for j in range(len(contentToSort)):
+      if (j == i):
+        continue
+      valueToCompareWith = contentToSort[j]
+      # print(valueToCompare, valueToCompareWith)
+      if (valueToCompare.lower() == valueToCompareWith.lower()):
+        contentToSort[i] = valueToCompareWith
+        contentToSort[j] = valueToCompare
+        i = 0
+        break;
+      elif (valueToCompare.lower() > valueToCompareWith.lower()):
+        contentToSort[i] = valueToCompareWith
+        contentToSort[j] = valueToCompare
+        i = 0
+        break;
   return contentToSort
 
 def clearDuplicatedWords(contentToClear: list):
@@ -57,7 +73,7 @@ def readFileAndSortContent(fileName: str, isUnique: bool):
   fileContentArray: list = splitWordsToArray(fileContent)
   if (isUnique):
     fileContentArray: list = clearDuplicatedWords(fileContentArray)
-  sortedFileContent: list = lexiographicSort(fileContentArray)
+  sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
 
 def checkArgumentLen(arguments: list):

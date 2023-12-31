@@ -2,7 +2,7 @@ import unittest
 import io
 import sys
 
-from main import lexiographicSort
+from main import lexicographicSort
 from main import readFile
 from main import readFileAndSortContent
 from main import openFile
@@ -58,10 +58,10 @@ class TestClass(unittest.TestCase):
     readFileContent: str = readFile(testFile)
     self.assertEqual(expectedValue, readFileContent)
 
-  def test_sortLexiographically(self):
+  def test_sortLexicographically(self):
     testData: list = TEST_DATA_2
-    expectedValue: list = TEST_DATA_1
-    sortedData: list = lexiographicSort(testData)
+    expectedValue: list = EXPECTED_4
+    sortedData: list = lexicographicSort(testData)
     self.assertEqual(expectedValue, sortedData)
 
   def test_readFileAndSortContentWithFalseUniqueness(self):

@@ -8,10 +8,10 @@ Basically this code tries to implement same functionalities as sort tool. I use 
 I presume that you have python already installed (install it if not).
 
 ```
-// Basic lexiographic sort with the usage of other tools
+// Basic lexicographic sort with the usage of other tools
 python3 main.py words.txt | uniq | head -n5
 
-// Basic lexiographic sort with the -u (unique) option
+// Basic lexicographic sort with the -u (unique) option
 python3 main.py -u words.txt | head -n5
 
 // Run unit tests
