@@ -11,6 +11,7 @@ from main import clearDuplicatedWords
 from main import splitWordsToArray
 from main import checkArgumentLen
 from main import readPassedArguments
+from main import createRadixBuckets
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -18,12 +19,14 @@ TEST_DATA_3: str = 'a\na\nb\nc\nc\nc\nd\ne'
 TEST_DATA_4: list = ['main.py']
 TEST_DATA_5: list = ['main.py', 'words.txt']
 TEST_DATA_6: list = ['main.py', '-u', 'words.txt']
-EXCEPTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
-EXCEPTED_2: str = 'Short text'
-EXCEPTED_3: list = ['a', 'b', 'c', 'd', 'e']
-EXCEPTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
-EXCEPTED_5: dict = {'fileName': 'words.txt', 'isUnique': False}
-EXCEPTED_6: dict = {'fileName': 'words.txt', 'isUnique': True}
+TEST_DATA_7: list = ['AAB', 'BA', 'AB', 'LLKF', 'ASDFG']
+EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
+EXPECTED_2: str = 'Short text'
+EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
+EXPECTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
+EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False}
+EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True}
+EXPECTED_7: dict = { 'A': ['AAB', 'AB', 'ASDFG'], 'B': ['BA'], 'L': ['LLKF'], 'sortedMostSignificants': ['A', 'B', 'L']}
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 TEST_FILE_1: str = 'testing/this-file-should-not-exist.txt'
@@ -36,7 +39,7 @@ class TestClass(unittest.TestCase):
     capturedOutput = io.StringIO()
     sys.stdout = capturedOutput
     testData: list = TEST_DATA_1
-    expectedValue: str = EXCEPTED_1
+    expectedValue: str = EXPECTED_1
     printWordsFromArray(testData)
     sys.stdout = sys.__stdout__
     self.assertEqual(expectedValue, capturedOutput.getvalue())
@@ -51,7 +54,7 @@ class TestClass(unittest.TestCase):
   # Here we also test that the file is opened and can be read
   def test_readFile(self):
     testFile: str = TEST_FILE_2
-    expectedValue: str = EXCEPTED_2
+    expectedValue: str = EXPECTED_2
     readFileContent: str = readFile(testFile)
     self.assertEqual(expectedValue, readFileContent)
 
@@ -63,25 +66,25 @@ class TestClass(unittest.TestCase):
 
   def test_readFileAndSortContentWithFalseUniqueness(self):
     testFile: str = TEST_FILE_3
-    expectedValue: list = EXCEPTED_4
+    expectedValue: list = EXPECTED_4
     readAndSortedContent: list = readFileAndSortContent(testFile, False)
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_readFileAndSortContentWithTrueUniqueness(self):
     testFile: str = TEST_FILE_3
-    expectedValue: list = EXCEPTED_3
+    expectedValue: list = EXPECTED_3
     readAndSortedContent: list = readFileAndSortContent(testFile, True)
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_clearDuplicatedWords(self):
     testData: list = TEST_DATA_1
-    expectedValue: list = EXCEPTED_3
+    expectedValue: list = EXPECTED_3
     uniqueList: list = clearDuplicatedWords(testData)
     self.assertEqual(expectedValue, uniqueList)
 
   def test_splitWordsToArray(self):
     testData: str = TEST_DATA_3
-    expectedValue: list = EXCEPTED_4
+    expectedValue: list = EXPECTED_4
     wordsInArray: list = splitWordsToArray(testData)
     self.assertEqual(expectedValue, wordsInArray)
 
@@ -93,12 +96,18 @@ class TestClass(unittest.TestCase):
 
   def test_readPassedArgumentsFilenameIsProvided(self):
     testData: list = TEST_DATA_5
-    expectedValue: dict = EXCEPTED_5
+    expectedValue: dict = EXPECTED_5
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 
   def test_readPassedArgumentsFilenameAndUniqueIsProvided(self):
     testData: list = TEST_DATA_6
-    expectedValue: dict = EXCEPTED_6
+    expectedValue: dict = EXPECTED_6
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
+
+  def test_createRadixBuckets(self):
+    testData: list = TEST_DATA_7
+    expectedValue: dict = EXPECTED_7
+    buckets: dict = createRadixBuckets(testData)
+    self.assertEqual(expectedValue, buckets)

@@ -5,6 +5,18 @@ def printWordsFromArray(words: list):
     print(i)
   return
 
+def createRadixBuckets(contentToCreateBucketsWith: list):
+  mostSignificants: list = []
+  buckets: dict = {}
+  for i in contentToCreateBucketsWith:
+    if i[0] not in mostSignificants:
+      mostSignificants.append(i[0])
+      buckets[i[0]] = []
+    buckets[i[0]].append(i)
+  mostSignificants.sort()
+  buckets['sortedMostSignificants'] = mostSignificants
+  return buckets;
+
 def radixSort(contentToSort: list):
   placeholder = 1
 
