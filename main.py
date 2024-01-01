@@ -23,21 +23,19 @@ def radixSort(contentToSort: list):
 def lexicographicSort(contentToSort: list):
   for i in range(len(contentToSort)):
     valueToCompare = contentToSort[i]
+    mostSignificantValue = valueToCompare
+    mostSignificantValueIndex = i
     for j in range(len(contentToSort)):
-      if (j == i):
-        continue
       valueToCompareWith = contentToSort[j]
       # print(valueToCompare, valueToCompareWith)
-      if (valueToCompare.lower() == valueToCompareWith.lower()):
-        contentToSort[i] = valueToCompareWith
-        contentToSort[j] = valueToCompare
-        i = 0
-        break;
+      if (mostSignificantValue.lower() == valueToCompareWith.lower()):
+        mostSignificantValue = valueToCompareWith
+        mostSignificantValueIndex = j
       elif (valueToCompare.lower() > valueToCompareWith.lower()):
-        contentToSort[i] = valueToCompareWith
-        contentToSort[j] = valueToCompare
-        i = 0
-        break;
+        mostSignificantValue = valueToCompareWith
+        mostSignificantValueIndex = j
+    contentToSort.insert(i, mostSignificantValue)
+    contentToSort.pop(mostSignificantValueIndex + 1)
   return contentToSort
 
 def clearDuplicatedWords(contentToClear: list):
