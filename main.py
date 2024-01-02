@@ -20,7 +20,7 @@ def createRadixBuckets(words: list):
 def radixSort(words: list):
   placeholder = 1
 
-def lexicographicSort(words: list):
+def lexicographicSort(words: list): # Todo. Make it faster?
   lenOfWords = len(words)
   for i in range(lenOfWords):
     for j in range(0, lenOfWords - i - 1):
