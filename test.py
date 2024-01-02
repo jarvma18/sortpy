@@ -4,7 +4,7 @@ import sys
 
 from main import lexicographicSort
 from main import readFile
-from main import readFileAndSortContent
+from main import readFileAndSortWords
 from main import openFile
 from main import printWordsFromArray
 from main import clearDuplicatedWords
@@ -67,13 +67,13 @@ class TestClass(unittest.TestCase):
   def test_readFileAndSortContentWithFalseUniqueness(self):
     testFile: str = TEST_FILE_3
     expectedValue: list = EXPECTED_4
-    readAndSortedContent: list = readFileAndSortContent(testFile, False)
+    readAndSortedContent: list = readFileAndSortWords(testFile, False)
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_readFileAndSortContentWithTrueUniqueness(self):
     testFile: str = TEST_FILE_3
     expectedValue: list = EXPECTED_3
-    readAndSortedContent: list = readFileAndSortContent(testFile, True)
+    readAndSortedContent: list = readFileAndSortWords(testFile, True)
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_clearDuplicatedWords(self):

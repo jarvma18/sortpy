@@ -5,10 +5,10 @@ def printWordsFromArray(words: list):
     print(i)
   return
 
-def createRadixBuckets(contentToCreateBucketsWith: list):
+def createRadixBuckets(words: list):
   mostSignificants: list = []
   buckets: dict = {}
-  for i in contentToCreateBucketsWith:
+  for i in words:
     if i[0] not in mostSignificants:
       mostSignificants.append(i[0])
       buckets[i[0]] = []
@@ -17,36 +17,26 @@ def createRadixBuckets(contentToCreateBucketsWith: list):
   buckets['sortedMostSignificants'] = mostSignificants
   return buckets;
 
-def radixSort(contentToSort: list):
+def radixSort(words: list):
   placeholder = 1
 
-def lexicographicSort(contentToSort: list):
-  for i in range(len(contentToSort)):
-    valueToCompare = contentToSort[i]
-    mostSignificantValue = valueToCompare
-    mostSignificantValueIndex = i
-    for j in range(len(contentToSort)):
-      valueToCompareWith = contentToSort[j]
-      # print(valueToCompare, valueToCompareWith)
-      if (mostSignificantValue.lower() == valueToCompareWith.lower()):
-        mostSignificantValue = valueToCompareWith
-        mostSignificantValueIndex = j
-      elif (valueToCompare.lower() > valueToCompareWith.lower()):
-        mostSignificantValue = valueToCompareWith
-        mostSignificantValueIndex = j
-    contentToSort.insert(i, mostSignificantValue)
-    contentToSort.pop(mostSignificantValueIndex + 1)
-  return contentToSort
+def lexicographicSort(words: list):
+  lenOfWords = len(words)
+  for i in range(lenOfWords):
+    for j in range(0, lenOfWords - i - 1):
+      if words[j] > words[j + 1]:
+        words[j], words[j+1] = words[j+1], words[j]
+  return words
 
-def clearDuplicatedWords(contentToClear: list):
+def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
-  for i in contentToClear:
+  for i in words:
     if i not in listOfUniqueWords:
       listOfUniqueWords.append(i)
   return listOfUniqueWords
 
-def splitWordsToArray(contentToSplit: str):
-  splittedContent: list = contentToSplit.split('\n')
+def splitWordsToArray(words: str):
+  splittedContent: list = words.split('\n')
   return splittedContent
 
 def openFile(fileName: str):
@@ -66,7 +56,7 @@ def readFile(fileName: str):
   else:
     return
 
-def readFileAndSortContent(fileName: str, isUnique: bool):
+def readFileAndSortWords(fileName: str, isUnique: bool):
   fileContent: str = readFile(fileName)
   fileContentArray: list = splitWordsToArray(fileContent)
   if (isUnique):
@@ -95,6 +85,5 @@ checkArgumentLen(sys.argv)
 arguments: dict = readPassedArguments(sys.argv)
 fileName: str = arguments['fileName']
 isUnique: bool = arguments['isUnique']
-sortedContent: list = readFileAndSortContent(fileName, isUnique)
-printWordsFromArray(sortedContent)
-
+sortedWords: list = readFileAndSortWords(fileName, isUnique)
+printWordsFromArray(sortedWords)
