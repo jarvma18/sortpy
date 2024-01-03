@@ -5,6 +5,9 @@ def printWordsFromArray(words: list):
     print(i)
   return
 
+def sortRadixBucket(bucket: list):
+  placeholder = 1
+
 def createRadixBuckets(words: list):
   mostSignificants: list = []
   buckets: dict = {}
@@ -18,7 +21,10 @@ def createRadixBuckets(words: list):
   return buckets;
 
 def radixSort(words: list):
-  placeholder = 1
+  buckets: dict = createRadixBuckets(words)
+  for i in buckets['sortedMostSignificants']:
+    buckets[i] = sortRadixBucket(buckets[i])
+  return buckets
 
 def lexicographicSort(words: list): # Todo. Make it faster?
   return sorted(words)
