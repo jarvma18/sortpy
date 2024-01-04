@@ -5,8 +5,38 @@ def printWordsFromArray(words: list):
     print(i)
   return
 
-def sortRadixBucket(bucket: list):
-  placeholder = 1
+def lexicographicSort(words: list): # Todo. Make it faster?
+  return sorted(words)
+
+def zipArraysTogether(firstArr: list, secondArr: list):
+  firstArr: list = [a + b for a, b in zip(firstArr, secondArr)]
+  return firstArr
+
+# Create new array where we place the bucket char at the first
+# creating same elements to arr
+def msbRadixSortBucket(firstCharacter: str, words: list):
+  print(words)
+  longestItem = max(words, key=len)
+  maxLength: int = len(longestItem)
+  print(maxLength)
+  sortedWords: list = []
+  for i in range(maxLength):
+    sortedWords.append(firstCharacter)
+  print(sortedWords)
+  for i in range(1, maxLength):
+    print(i)
+    nextCharacters: list = []
+    for j in range(len(words)):
+      if (len(words[j]) >= i + 1):
+        nextCharacters.append(words[j][i])
+      else:
+        nextCharacters.append('')
+    print(nextCharacters)
+    nextCharacters: list = lexicographicSort(nextCharacters)
+    print(nextCharacters)
+    sortedWords: list = zipArraysTogether(sortedWords, nextCharacters)
+    print(sortedWords)
+  return sortedWords
 
 def createRadixBuckets(words: list):
   mostSignificants: list = []
@@ -23,11 +53,8 @@ def createRadixBuckets(words: list):
 def radixSort(words: list):
   buckets: dict = createRadixBuckets(words)
   for i in buckets['sortedMostSignificants']:
-    buckets[i] = sortRadixBucket(buckets[i])
+    buckets[i] = msbRadixSortBucket(i, buckets[i])
   return buckets
-
-def lexicographicSort(words: list): # Todo. Make it faster?
-  return sorted(words)
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
