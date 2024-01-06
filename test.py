@@ -22,19 +22,12 @@ TEST_DATA_3: str = 'a\na\nb\nc\nc\nc\nd\ne'
 TEST_DATA_4: list = ['main.py']
 TEST_DATA_5: list = ['main.py', 'words.txt']
 TEST_DATA_6: list = ['main.py', '-u', 'words.txt']
-TEST_DATA_7: list = ['AAB', 'BA', 'AB', 'LLKF', 'ASDFG']
-TEST_DATA_8: list = ['d', 'D', 'A', 'a', 'C', 'c', 'B', 'b']
-TEST_DATA_9: list = ['8', '7', '1', '2', '5', '6', '3', '4']
-TEST_DATA_10: list = ['AAAB', 'ABA', 'AAB', 'ALLKF', 'AASDFG']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
 EXPECTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False}
 EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True}
-EXPECTED_7: dict = { 'A': ['AAB', 'AB', 'ASDFG'], 'B': ['BA'], 'L': ['LLKF'], 'sortedMostSignificants': ['A', 'B', 'L']}
-EXPECTED_8: list = ['d8', 'D7', 'A1', 'a2', 'C5', 'c6', 'B3', 'b4']
-EXPECTED_9: list = ['AAAB', 'AAB', 'AASDFG', 'ABA', 'ALLKF']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 TEST_FILE_1: str = 'testing/this-file-should-not-exist.txt'
@@ -113,24 +106,4 @@ class TestClass(unittest.TestCase):
     expectedValue: dict = EXPECTED_6
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
-
-  def test_createRadixBuckets(self):
-    testData: list = TEST_DATA_7
-    expectedValue: dict = EXPECTED_7
-    buckets: dict = createRadixBuckets(testData)
-    self.assertEqual(expectedValue, buckets)
-
-  def test_zipArraysTogether(self):
-    testData1: list = TEST_DATA_8
-    testData2: list = TEST_DATA_9
-    expectedValue: list = EXPECTED_8
-    zippedArray = zipArraysTogether(testData1, testData2)
-    self.assertEqual(expectedValue, zippedArray)
-
-  def test_msbRadixSortBucket(self):
-    testData = TEST_DATA_10
-    expectedValue = EXPECTED_9
-    firstCharacter = 'A'
-    sortedWords = msbRadixSortBucket(firstCharacter, testData)
-    self.assertEqual(expectedValue, sortedWords)
 
