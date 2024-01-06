@@ -28,21 +28,23 @@ def radixSort(words: list):
   # let's order words to bucket by 1st character:
   for i in range (len(words)):
     # foundBucket variable so we know if there even were bucket
-    foundBucket = False
+    foundBucket: bool = False
     if len(buckets) == 0:
       buckets.append([])
       buckets[0].append(words[i])
-      foundBucket = True
+      foundBucket: bool = True
     if (foundBucket):
       continue
     for j in range(len(buckets)):
       if words[i][0].lower() == buckets[j][0][0].lower():
         buckets[j].append(words[i])
-        foundBucket = True
+        foundBucket: bool = True
     if (foundBucket):
       continue
     else:
       buckets.append([words[i]])
+  for i in range(len(buckets)):
+    buckets[i]: list = lexicographicSortOnCharacter(buckets[i], 2)
   # todo: if bucket len is 1 no need for sorting
   # if the characters in buckets in certain index are all different
   # then I think that there is no need to sort anything in that
