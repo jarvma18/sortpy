@@ -11,9 +11,6 @@ from main import clearDuplicatedWords
 from main import splitWordsToArray
 from main import checkArgumentLen
 from main import readPassedArguments
-from main import createRadixBuckets
-from main import zipArraysTogether
-from main import msbRadixSortBucket
 from main import radixSort
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
@@ -22,12 +19,14 @@ TEST_DATA_3: str = 'a\na\nb\nc\nc\nc\nd\ne'
 TEST_DATA_4: list = ['main.py']
 TEST_DATA_5: list = ['main.py', 'words.txt']
 TEST_DATA_6: list = ['main.py', '-u', 'words.txt']
+TEST_DATA_7: list = ['The', 'anyone', 'banana', 'ananas', 'anywhere', 'tuple', 'bass']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
 EXPECTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False}
 EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True}
+EXPECTED_7: list = ['ananas', 'anyone', 'anywhere', 'banana', 'bass', 'The', 'tuple']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 TEST_FILE_1: str = 'testing/this-file-should-not-exist.txt'
@@ -107,3 +106,8 @@ class TestClass(unittest.TestCase):
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 
+  def test_radixSort(self):
+    testData: list = TEST_DATA_7
+    expectedValue: list = EXPECTED_7
+    radixSortedData: list = radixSort(testData)
+    self.assertEqual(expectedValue, radixSortedData)

@@ -9,12 +9,45 @@ def lexicographicSort(words: list): # Todo. Make it faster?
   lenOfWords = len(words)
   for i in range(lenOfWords):
     for j in range(0, lenOfWords - i - 1):
-      if words[j] > words[j + 1]:
+      if words[j].lower() > words[j + 1].lower():
+        words[j], words[j+1] = words[j+1], words[j]
+  return words
+
+def lexicographicSortOnCharacter(words: list, index: int):
+  lenOfWords = len(words)
+  for i in range(lenOfWords):
+    for j in range(0, lenOfWords - i - 1):
+      if words[j][index].lower() > words[j + 1][index].lower():
         words[j], words[j+1] = words[j+1], words[j]
   return words
 
 def radixSort(words: list):
-  return
+  # order words by the leftmost character (most significant)
+  words: list = lexicographicSortOnCharacter(words, 0)
+  buckets: list = []
+  # let's order words to bucket by 1st character:
+  for i in range (len(words)):
+    # foundBucket variable so we know if there even were bucket
+    foundBucket = False
+    if len(buckets) == 0:
+      buckets.append([])
+      buckets[0].append(words[i])
+      foundBucket = True
+    if (foundBucket):
+      continue
+    for j in range(len(buckets)):
+      if words[i][0].lower() == buckets[j][0][0].lower():
+        buckets[j].append(words[i])
+        foundBucket = True
+    if (foundBucket):
+      continue
+    else:
+      buckets.append([words[i]])
+  # todo: if bucket len is 1 no need for sorting
+  # if the characters in buckets in certain index are all different
+  # then I think that there is no need to sort anything in that
+  # bucket, create function that could be called recursively
+  return buckets
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
