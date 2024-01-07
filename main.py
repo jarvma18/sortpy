@@ -13,7 +13,7 @@ def lexicographicSort(words: list): # Todo. Make it faster?
         words[j], words[j+1] = words[j+1], words[j]
   return words
 
-def lexicographicSortOnCharacter(words: list, index: int):
+def lexicographicSortOnChar(words: list, index: int):
   lenOfWords = len(words)
   for i in range(lenOfWords):
     for j in range(0, lenOfWords - i - 1):
@@ -21,12 +21,45 @@ def lexicographicSortOnCharacter(words: list, index: int):
         words[j], words[j+1] = words[j+1], words[j]
   return words
 
+def radixBucketSort(words: list, maxLen: int, index: int):
+  buckets: list = []
+  # early return if there is nothing to sort
+  if len(words) < 2:
+    return words
+  for i in range(len(words)):
+    foundBucket: bool = False
+    if len(buckets) == 0:
+      buckets.append([])
+      buckets[0].append(words[i])
+      foundBucket: bool = True
+    if (foundBucket):
+      continue
+    for j in range(len(buckets)):
+      if words[i][index].lower() == buckets[j][0][index].lower():
+        buckets[j].append(words[i])
+        foundBucket: bool = True
+    if (foundBucket):
+      continue
+    else:
+      buckets.append([words[i]])
+  for i in range(len(buckets)):
+    buckets[i]: list = lexicographicSortOnChar(buckets[i], index)
+  # This means that there is more to sort and not just one same char
+  sortedBuckets: list = []
+  if index == maxLen:
+    return buckets;
+  if len(buckets) > 1:
+    for i in range(len(buckets)):
+      sortedBuckets.append(radixBucketSort(buckets[i], maxLen, index + 1))
+  else:
+    return buckets
+
 def radixSort(words: list):
   # order words by the leftmost character (most significant)
-  words: list = lexicographicSortOnCharacter(words, 0)
+  words: list = lexicographicSortOnChar(words, 0)
   buckets: list = []
   # let's order words to bucket by 1st character:
-  for i in range (len(words)):
+  for i in range(len(words)):
     # foundBucket variable so we know if there even were bucket
     foundBucket: bool = False
     if len(buckets) == 0:
@@ -43,13 +76,15 @@ def radixSort(words: list):
       continue
     else:
       buckets.append([words[i]])
+  sortedBuckets: list = []
   for i in range(len(buckets)):
-    buckets[i]: list = lexicographicSortOnCharacter(buckets[i], 2)
+    maxLen: int = max(buckets[i], key=len)
+    sortedBuckets.append(radixBucketSort(buckets[i], maxLen, 1))
   # todo: if bucket len is 1 no need for sorting
   # if the characters in buckets in certain index are all different
   # then I think that there is no need to sort anything in that
   # bucket, create function that could be called recursively
-  return buckets
+  return sortedBuckets
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
