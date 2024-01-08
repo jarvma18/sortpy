@@ -46,13 +46,12 @@ def radixBucketSort(words: list, maxLen: int, index: int):
     buckets[i]: list = lexicographicSortOnChar(buckets[i], index)
   # This means that there is more to sort and not just one same char
   sortedBuckets: list = []
+  print(buckets)
   if index == maxLen:
     return buckets;
-  if len(buckets) > 1:
-    for i in range(len(buckets)):
-      sortedBuckets.append(radixBucketSort(buckets[i], maxLen, index + 1))
   else:
-    return buckets
+    for i in range(len(buckets)):
+      return sortedBuckets.append(radixBucketSort(buckets[i], maxLen, index + 1))
 
 def radixSort(words: list):
   # order words by the leftmost character (most significant)
