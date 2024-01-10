@@ -21,12 +21,14 @@ def lexicographicSortOnChar(words: list, index: int):
         words[j], words[j+1] = words[j+1], words[j]
   return words
 
-def radixBucketSort(words: list, maxLen: int, index: int):
+def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
   buckets: list = []
   # early return if there is nothing to sort
   if len(words) < 2:
     return words
   words: list = lexicographicSortOnChar(words, index + 1)
+  if lexAndReturn:
+    return words
   for i in range(len(words)):
     foundBucket: bool = False
     if len(buckets) == 0:
@@ -43,6 +45,9 @@ def radixBucketSort(words: list, maxLen: int, index: int):
       continue
     else:
       buckets.append([words[i]])
+  nothingToSort: bool = False
+  if len(buckets) == 1:
+    nothingToSort = True
   for i in range(len(buckets)):
     buckets[i]: list = lexicographicSortOnChar(buckets[i], index)
   # This means that there is more to sort and not just one same char
@@ -52,7 +57,7 @@ def radixBucketSort(words: list, maxLen: int, index: int):
     return buckets;
   else:
     for i in range(len(buckets)):
-      sortedBuckets.append(radixBucketSort(buckets[i], maxLen, index + 1))
+      sortedBuckets.append(radixBucketSort(buckets[i], maxLen, index + 1, nothingToSort))
   return sortedBuckets
 
 def radixSort(words: list):
@@ -80,7 +85,7 @@ def radixSort(words: list):
   sortedBuckets: list = []
   for i in range(len(buckets)):
     maxLen: int = max(buckets[i], key=len)
-    sortedBuckets.append(radixBucketSort(buckets[i], maxLen, 1))
+    sortedBuckets.append(radixBucketSort(buckets[i], maxLen, 1, False))
   # todo: if bucket len is 1 no need for sorting
   # if the characters in buckets in certain index are all different
   # then I think that there is no need to sort anything in that
