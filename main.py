@@ -21,6 +21,15 @@ def lexicographicSortOnChar(words: list, index: int):
         words[j], words[j+1] = words[j+1], words[j]
   return words
 
+def flatten(array: list):
+  result = []
+  for i in array:
+    if isinstance(i, list):
+      result.extend(flatten(i))
+    else:
+      result.append(i)
+  return result
+
 def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
   buckets: list = []
   # early return if there is nothing to sort
@@ -90,7 +99,8 @@ def radixSort(words: list):
   # if the characters in buckets in certain index are all different
   # then I think that there is no need to sort anything in that
   # bucket, create function that could be called recursively
-  return sortedBuckets
+  sortedWords = flatten(sortedBuckets)
+  return sortedWords
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
