@@ -30,14 +30,8 @@ def flatten(array: list):
       result.append(i)
   return result
 
-def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
+def createBuckets(words, index):
   buckets: list = []
-  # early return if there is nothing to sort
-  if len(words) < 2:
-    return words
-  words: list = lexicographicSortOnChar(words, index + 1)
-  if lexAndReturn:
-    return words
   for i in range(len(words)):
     foundBucket: bool = False
     if len(buckets) == 0:
@@ -54,14 +48,25 @@ def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
       continue
     else:
       buckets.append([words[i]])
+  return buckets
+
+def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
+  # early return if there is nothing to sort
+  if len(words) < 2:
+    return words
+  # sort lexicographically based on the next character
+  words: list = lexicographicSortOnChar(words, index + 1)
+  # if there is nothing to sort, return after lexicographic sort
+  if lexAndReturn:
+    return words
+  buckets = createBuckets(words, index)
   nothingToSort: bool = False
   if len(buckets) == 1:
-    nothingToSort = True
+    nothingToSort: bool = True
   for i in range(len(buckets)):
     buckets[i]: list = lexicographicSortOnChar(buckets[i], index)
   # This means that there is more to sort and not just one same char
   sortedBuckets: list = []
-  print(buckets)
   if index == maxLen:
     return buckets;
   else:
@@ -72,33 +77,12 @@ def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
 def radixSort(words: list):
   # order words by the leftmost character (most significant)
   words: list = lexicographicSortOnChar(words, 0)
-  buckets: list = []
-  # let's order words to bucket by 1st character:
-  for i in range(len(words)):
-    # foundBucket variable so we know if there even were bucket
-    foundBucket: bool = False
-    if len(buckets) == 0:
-      buckets.append([])
-      buckets[0].append(words[i])
-      foundBucket: bool = True
-    if (foundBucket):
-      continue
-    for j in range(len(buckets)):
-      if words[i][0].lower() == buckets[j][0][0].lower():
-        buckets[j].append(words[i])
-        foundBucket: bool = True
-    if (foundBucket):
-      continue
-    else:
-      buckets.append([words[i]])
+  # let's order words to buckets by 1st character:
+  buckets = createBuckets(words, 0)
   sortedBuckets: list = []
   for i in range(len(buckets)):
     maxLen: int = max(buckets[i], key=len)
     sortedBuckets.append(radixBucketSort(buckets[i], maxLen, 1, False))
-  # todo: if bucket len is 1 no need for sorting
-  # if the characters in buckets in certain index are all different
-  # then I think that there is no need to sort anything in that
-  # bucket, create function that could be called recursively
   sortedWords = flatten(sortedBuckets)
   return sortedWords
 
