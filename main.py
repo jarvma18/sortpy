@@ -114,12 +114,16 @@ def readFile(fileName: str):
   else:
     return
 
-def readFileAndSortWords(fileName: str, isUnique: bool):
+def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
   fileContent: str = readFile(fileName)
   fileContentArray: list = splitWordsToArray(fileContent)
   if (isUnique):
     fileContentArray: list = clearDuplicatedWords(fileContentArray)
-  sortedFileContent: list = lexicographicSort(fileContentArray)
+  sortedFileContent: list = []
+  if (sortAlgorithm == 'radix'):
+    sortedFileContent: list = radixSort(fileContentArray)
+  else:
+    sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
 
 def checkArgumentLen(arguments: list):
@@ -132,16 +136,20 @@ def readPassedArguments(arguments: list):
   lastArgument: str = arguments[len(arguments) - 1]
   argumentObject: dict = {
     'fileName': lastArgument,
-    'isUnique': False
+    'isUnique': False,
+    'sortAlgorithm': 'default' # lexicographic
   }
   for i in arguments:
     if i == '-u':
       argumentObject['isUnique'] = True
+    elif i == 'sort=radix':
+      argumentObject['sortAlgorithm'] = 'radix'
   return argumentObject
 
 checkArgumentLen(sys.argv)
 arguments: dict = readPassedArguments(sys.argv)
 fileName: str = arguments['fileName']
 isUnique: bool = arguments['isUnique']
-sortedWords: list = readFileAndSortWords(fileName, isUnique)
+sortAlgorithm: str = arguments['sortAlgorithm']
+sortedWords: list = readFileAndSortWords(fileName, isUnique, sortAlgorithm)
 printWordsFromArray(sortedWords)
