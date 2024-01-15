@@ -25,16 +25,18 @@ TEST_DATA_6: list = ['main.py', '-u', 'words.txt']
 TEST_DATA_7: list = ['tuple', 'anyone', 'bass', 'ananas', 'anywhere', 'The', 'banana']
 TEST_DATA_8: list = [[['ananas']], ['banana'],[['bass', 'basso']]]
 TEST_DATA_9: list = ['ananas', 'pineapple', 'banana']
+TEST_DATA_10: list = ['main.py', '-u', 'sort=radix', 'words.txt']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
 EXPECTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
-EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False}
-EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True}
+EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False, 'sortAlgorithm': 'default'}
+EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True, 'sortAlgorithm': 'default'}
 EXPECTED_7: list = ['ananas', 'anyone', 'anywhere', 'banana', 'bass', 'The', 'tuple']
 EXPECTED_8: list = ['ananas', 'banana', 'bass', 'basso']
 EXPECTED_9: list = [['tuple', 'The'], ['anyone', 'ananas', 'anywhere'], ['bass', 'banana']]
 EXPECTED_10: list = ['banana', 'pineapple', 'ananas']
+EXPECTED_11: dict = {'fileName': 'words.txt', 'isUnique': True, 'sortAlgorithm': 'radix'}
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 TEST_FILE_1: str = 'testing/this-file-should-not-exist.txt'
@@ -75,13 +77,13 @@ class TestClass(unittest.TestCase):
   def test_readFileAndSortContentWithFalseUniqueness(self):
     testFile: str = TEST_FILE_3
     expectedValue: list = EXPECTED_4
-    readAndSortedContent: list = readFileAndSortWords(testFile, False)
+    readAndSortedContent: list = readFileAndSortWords(testFile, False, 'default')
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_readFileAndSortContentWithTrueUniqueness(self):
     testFile: str = TEST_FILE_3
     expectedValue: list = EXPECTED_3
-    readAndSortedContent: list = readFileAndSortWords(testFile, True)
+    readAndSortedContent: list = readFileAndSortWords(testFile, True, 'default')
     self.assertEqual(expectedValue, readAndSortedContent)
 
   def test_clearDuplicatedWords(self):
@@ -111,6 +113,12 @@ class TestClass(unittest.TestCase):
   def test_readPassedArgumentsFilenameAndUniqueIsProvided(self):
     testData: list = TEST_DATA_6
     expectedValue: dict = EXPECTED_6
+    argumentsObject: dict = readPassedArguments(testData)
+    self.assertEqual(expectedValue, argumentsObject)
+
+  def test_readPassedArgumentsFilenameUniqueAndAlgorithmIsProvided(self):
+    testData: list = TEST_DATA_10
+    expectedValue: dict = EXPECTED_11
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 
