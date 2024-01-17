@@ -42,6 +42,7 @@ EXPECTED_11: dict = {'fileName': 'words.txt', 'isUnique': True, 'sortAlgorithm':
 EXPECTED_12: list = ['anyone', 'ananas', 'anywhere', 'bass', 'banana', 'tuple', 'The']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
+EXCEPTION_3: str = 'Given index is out of range'
 TEST_FILE_1: str = 'testing/this-file-should-not-exist.txt'
 TEST_FILE_2: str = 'testing/short-text.txt'
 TEST_FILE_3: str = 'testing/short-words.txt'
@@ -162,7 +163,8 @@ class TestClass(unittest.TestCase):
     self.assertEqual(expectedValue, sortedData)
 
   def test_lexicographicSortOnCharOutOfIndex(self):
+    expectionMessage: str = EXCEPTION_3
     testData: list = TEST_DATA_11
-    expectedValue: list = EXPECTED_12
-    sortedData: list = lexicographicSortOnChar(testData, 100)
-    self.assertEqual(expectedValue, sortedData)
+    with self.assertRaises(Exception) as context:
+      lexicographicSortOnChar(testData, 100)
+    self.assertTrue(expectionMessage in str(context.exception))
