@@ -15,6 +15,7 @@ from main import radixSort
 from main import radixBucketSort
 from main import createBuckets
 from main import flatten
+from main import lexicographicSortOnChar
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -26,6 +27,7 @@ TEST_DATA_7: list = ['tuple', 'anyone', 'bass', 'ananas', 'anywhere', 'The', 'ba
 TEST_DATA_8: list = [[['ananas']], ['banana'],[['bass', 'basso']]]
 TEST_DATA_9: list = ['ananas', 'pineapple', 'banana']
 TEST_DATA_10: list = ['main.py', '-u', 'sort=radix', 'words.txt']
+TEST_DATA_11: list = ['tuple', 'anyone', 'bass', 'ananas', 'anywhere', 'The', 'banana']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -37,6 +39,7 @@ EXPECTED_8: list = ['ananas', 'banana', 'bass', 'basso']
 EXPECTED_9: list = [['tuple', 'The'], ['anyone', 'ananas', 'anywhere'], ['bass', 'banana']]
 EXPECTED_10: list = ['banana', 'pineapple', 'ananas']
 EXPECTED_11: dict = {'fileName': 'words.txt', 'isUnique': True, 'sortAlgorithm': 'radix'}
+EXPECTED_12: list = ['anyone', 'ananas', 'anywhere', 'bass', 'banana', 'tuple', 'The']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 TEST_FILE_1: str = 'testing/this-file-should-not-exist.txt'
@@ -151,3 +154,15 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_8
     flattenedArray: list = flatten(testData)
     self.assertEqual(expectedValue, flattenedArray)
+
+  def test_lexicographicSortOnChar(self):
+    testData: list = TEST_DATA_11
+    expectedValue: list = EXPECTED_12
+    sortedData: list = lexicographicSortOnChar(testData, 0)
+    self.assertEqual(expectedValue, sortedData)
+
+  def test_lexicographicSortOnCharOutOfIndex(self):
+    testData: list = TEST_DATA_11
+    expectedValue: list = EXPECTED_12
+    sortedData: list = lexicographicSortOnChar(testData, 100)
+    self.assertEqual(expectedValue, sortedData)
