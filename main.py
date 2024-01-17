@@ -16,8 +16,6 @@ def lexicographicSort(words: list): # Todo. Make it faster?
 def lexicographicSortOnChar(words: list, index: int):
   print(len(words), index)
   lenOfWords: int = len(words)
-  if index - 1 > lenOfWords:
-    raise Exception('Given index is out of range')
   for i in range(lenOfWords):
     for j in range(0, lenOfWords - i - 1):
       if words[j][index].lower() > words[j + 1][index].lower():

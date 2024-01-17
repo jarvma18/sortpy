@@ -161,10 +161,3 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_12
     sortedData: list = lexicographicSortOnChar(testData, 0)
     self.assertEqual(expectedValue, sortedData)
-
-  def test_lexicographicSortOnCharOutOfIndex(self):
-    expectionMessage: str = EXCEPTION_3
-    testData: list = TEST_DATA_11
-    with self.assertRaises(Exception) as context:
-      lexicographicSortOnChar(testData, 100)
-    self.assertTrue(expectionMessage in str(context.exception))
