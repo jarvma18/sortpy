@@ -13,11 +13,15 @@ def lexicographicSort(words: list): # Todo. Make it faster?
         words[j], words[j + 1] = words[j + 1], words[j]
   return words
 
+def checkIfIndexIsInRange(arrOne: list, arrTwo: list, index: int):
+  return index < len(arrOne) and index < len(arrTwo)
+
 def lexicographicSortOnChar(words: list, index: int):
   lenOfWords: int = len(words)
   for i in range(lenOfWords):
     for j in range(0, lenOfWords - i - 1):
-      if index < len(words[j]) and index < len(words[j + 1]) and words[j][index].lower() > words[j + 1][index].lower():
+      indexInRange: bool = checkIfIndexIsInRange(words[j], words[j + 1], index)
+      if indexInRange and words[j][index].lower() > words[j + 1][index].lower():
         words[j], words[j + 1] = words[j + 1], words[j]
   return words
 
@@ -30,7 +34,7 @@ def flatten(array: list):
       result.append(i)
   return result
 
-def createBuckets(words, index):
+def createBuckets(words: list, index: int):
   buckets: list = []
   for i in range(len(words)):
     foundBucket: bool = False
@@ -41,7 +45,8 @@ def createBuckets(words, index):
     if (foundBucket):
       continue
     for j in range(len(buckets)):
-      if index < len(words[i]) and index < len(buckets[j][0]) and words[i][index].lower() == buckets[j][0][index].lower():
+      indexInRange: bool = checkIfIndexIsInRange(words[i], buckets[j][0], index)
+      if indexInRange and words[i][index].lower() == buckets[j][0][index].lower():
         buckets[j].append(words[i])
         foundBucket: bool = True
     if (foundBucket):
@@ -54,7 +59,6 @@ def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
   # early return if there is nothing to sort
   if len(words) < 2:
     return words
-  # sort lexicographically based on the next character
   words: list = lexicographicSortOnChar(words, index)
   # if there is nothing to sort, return after lexicographic sort
   if lexAndReturn:
