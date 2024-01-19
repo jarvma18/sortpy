@@ -16,7 +16,6 @@ def lexicographicSort(words: list): # Todo. Make it faster?
 def lexicographicSortOnChar(words: list, index: int):
   lenOfWords: int = len(words)
   for i in range(lenOfWords):
-    # print(words)
     for j in range(0, lenOfWords - i - 1):
       if index < len(words[j]) and index < len(words[j + 1]) and words[j][index].lower() > words[j + 1][index].lower():
         words[j], words[j + 1] = words[j + 1], words[j]
@@ -42,7 +41,7 @@ def createBuckets(words, index):
     if (foundBucket):
       continue
     for j in range(len(buckets)):
-      if index < len(words[i]) and index < len(words[j][0]) and words[i][index].lower() == buckets[j][0][index].lower():
+      if index < len(words[i]) and index < len(buckets[j][0]) and words[i][index].lower() == buckets[j][0][index].lower():
         buckets[j].append(words[i])
         foundBucket: bool = True
     if (foundBucket):
@@ -56,13 +55,11 @@ def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
   if len(words) < 2:
     return words
   # sort lexicographically based on the next character
-  words: list = lexicographicSortOnChar(words, index + 1)
+  words: list = lexicographicSortOnChar(words, index)
   # if there is nothing to sort, return after lexicographic sort
   if lexAndReturn:
     return words
   buckets = createBuckets(words, index)
-  # print(buckets)
-  # print('\n')
   nothingToSort: bool = False
   if len(buckets) < 2:
     nothingToSort: bool = True
@@ -74,7 +71,6 @@ def radixBucketSort(words: list, maxLen: int, index: int, lexAndReturn: bool):
     return buckets;
   else:
     for i in range(len(buckets)):
-      maxLen: int = max(buckets[i], key=len)
       sortedBuckets.append(radixBucketSort(buckets[i], maxLen, index + 1, nothingToSort))
   return sortedBuckets
 
@@ -90,10 +86,8 @@ def radixSort(words: list):
   sortedBuckets: list = []
   for i in range(len(buckets)):
     buckets[i] = sortWordsByLength(buckets[i])
-    print(buckets[i])
-    maxLen: int = max(buckets[i], key=len)
+    maxLen: int = len(max(buckets[i], key=len))
     sortedBuckets.append(radixBucketSort(buckets[i], maxLen, 1, False))
-  print(sortedBuckets)
   sortedWords = flatten(sortedBuckets)
   return sortedWords
 
