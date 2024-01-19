@@ -16,6 +16,7 @@ from main import radixBucketSort
 from main import createBuckets
 from main import flatten
 from main import lexicographicSortOnChar
+from main import checkIfIndexIsInRange
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -194,3 +195,24 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_12
     sortedData: list = lexicographicSortOnChar(testData, 0)
     self.assertEqual(expectedValue, sortedData)
+
+  def test_checkIfIndexIsInRange_notInRange(self):
+    arr1: list = TEST_DATA_1
+    arr2: list = TEST_DATA_4
+    expectedValue: bool = False
+    indexInRange: bool = checkIfIndexIsInRange(arr1, arr2, 100)
+    self.assertEqual(expectedValue, indexInRange)
+
+  def test_checkIfIndexIsInRange_inRange(self):
+    arr1: list = TEST_DATA_1
+    arr2: list = TEST_DATA_4
+    expectedValue: bool = True
+    indexInRange: bool = checkIfIndexIsInRange(arr1, arr2, 0)
+    self.assertEqual(expectedValue, indexInRange)
+
+  def test_checkIfIndexIsInRange_notInRangeOfOther(self):
+    arr1: list = TEST_DATA_1
+    arr2: list = TEST_DATA_4
+    expectedValue: bool = False
+    indexInRange: bool = checkIfIndexIsInRange(arr1, arr2, 2)
+    self.assertEqual(expectedValue, indexInRange)
