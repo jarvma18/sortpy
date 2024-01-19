@@ -23,23 +23,50 @@ TEST_DATA_3: str = 'a\na\nb\nc\nc\nc\nd\ne'
 TEST_DATA_4: list = ['main.py']
 TEST_DATA_5: list = ['main.py', 'words.txt']
 TEST_DATA_6: list = ['main.py', '-u', 'words.txt']
-TEST_DATA_7: list = ['tuple', 'anyones', 'bass', 'ananas', 'anywhere', 'The', 'banana', 'A']
+TEST_DATA_7: list = ['tuple', 'anyones', 'bass', 'ananas',\
+                     'anywhere', 'The', 'banana', 'A']
 TEST_DATA_8: list = [[['ananas']], ['banana'],[['bass', 'basso']]]
 TEST_DATA_9: list = ['ananas', 'pineapple', 'banana']
 TEST_DATA_10: list = ['main.py', '-u', 'sort=radix', 'words.txt']
-TEST_DATA_11: list = ['tuple', 'anyone', 'bass', 'ananas', 'anywhere', 'The', 'banana']
+TEST_DATA_11: list = ['tuple', 'anyone', 'bass', 'ananas',\
+                      'anywhere', 'The', 'banana']
+TEST_DATA_12: list = ['The', 'Project', 'Gutenberg',\
+                      'eBook', 'of', 'Art', 'War', 'This',\
+                      'ebook', 'is', 'for', 'the', 'use',\
+                      'anyone', 'anywhere', 'in', 'United',\
+                      'States', 'and', 'most', 'other',\
+                      'parts', 'world', 'at', 'no', 'cost',\
+                      'with', 'almost', 'restrictions',\
+                      'whatsoever', 'You', 'may', 'copy',\
+                      'it', 'give', 'away', 'or', 're']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
 EXPECTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
-EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False, 'sortAlgorithm': 'default'}
-EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True, 'sortAlgorithm': 'default'}
-EXPECTED_7: list = ['A', 'ananas', 'anyones', 'anywhere', 'banana', 'bass', 'The', 'tuple']
+EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False,\
+                    'sortAlgorithm': 'default'}
+EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True,\
+                    'sortAlgorithm': 'default'}
+EXPECTED_7: list = ['A', 'ananas', 'anyones', 'anywhere',\
+                    'banana', 'bass', 'The', 'tuple']
 EXPECTED_8: list = ['ananas', 'banana', 'bass', 'basso']
-EXPECTED_9: list = [['tuple', 'The'], ['anyones', 'ananas', 'anywhere', 'A'], ['bass', 'banana']]
-EXPECTED_10: list = ['banana', 'pineapple', 'ananas']
-EXPECTED_11: dict = {'fileName': 'words.txt', 'isUnique': True, 'sortAlgorithm': 'radix'}
-EXPECTED_12: list = ['anyone', 'ananas', 'anywhere', 'bass', 'banana', 'tuple', 'The']
+EXPECTED_9: list = [['tuple', 'The'],\
+                    ['anyones', 'ananas','anywhere', 'A'],\
+                    ['bass', 'banana']]
+EXPECTED_10: list = ['ananas', 'banana', 'pineapple']
+EXPECTED_11: dict = {'fileName': 'words.txt', 'isUnique': True,\
+                     'sortAlgorithm': 'radix'}
+EXPECTED_12: list = ['anyone', 'ananas', 'anywhere', 'bass',\
+                     'banana', 'tuple', 'The']
+EXPECTED_13: list = ['almost', 'and', 'anyone', 'anywhere',\
+                     'Art', 'at', 'away', 'copy', 'cost',\
+                     'eBook', 'ebook', 'for', 'give',\
+                     'Gutenberg', 'in', 'is', 'it', 'may',\
+                     'most', 'no', 'of', 'or', 'other',\
+                     'parts', 'Project', 're', 'restrictions',\
+                     'States', 'The', 'the', 'This', 'United',\
+                     'use', 'War', 'whatsoever', 'with',\
+                     'world', 'You']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -129,6 +156,12 @@ class TestClass(unittest.TestCase):
   def test_radixSort(self):
     testData: list = TEST_DATA_7
     expectedValue: list = EXPECTED_7
+    radixSortedData: list = radixSort(testData)
+    self.assertEqual(expectedValue, radixSortedData)
+
+  def test_radixSort_withLargerData(self):
+    testData: list = TEST_DATA_12
+    expectedValue: list = EXPECTED_13
     radixSortedData: list = radixSort(testData)
     self.assertEqual(expectedValue, radixSortedData)
 
