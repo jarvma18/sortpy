@@ -129,8 +129,10 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
   if (isUnique):
     fileContentArray: list = clearDuplicatedWords(fileContentArray)
   sortedFileContent: list = []
-  if (sortAlgorithm == 'radix'):
+  if sortAlgorithm == 'radix':
     sortedFileContent: list = radixSort(fileContentArray)
+  elif sortAlgorithm == 'mergesort':
+    # ..
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
@@ -153,6 +155,8 @@ def readPassedArguments(arguments: list):
       argumentObject['isUnique'] = True
     elif i == 'sort=radix':
       argumentObject['sortAlgorithm'] = 'radix'
+    elif i == 'sort=mergesort':
+      argumentObject['sortAlgorithm'] = 'mergesort'
   return argumentObject
 
 checkArgumentLen(sys.argv)
