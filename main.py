@@ -132,7 +132,7 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
   if sortAlgorithm == 'radix':
     sortedFileContent: list = radixSort(fileContentArray)
   elif sortAlgorithm == 'mergesort':
-    # ..
+    placeholder = 1
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
