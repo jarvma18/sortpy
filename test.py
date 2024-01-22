@@ -18,6 +18,7 @@ from main import flatten
 from main import lexicographicSortOnChar
 from main import checkIfIndexIsInRange
 from main import sortWordsByLength
+from main import divideArray
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -74,6 +75,8 @@ EXPECTED_14: dict = {'fileName': 'words.txt', 'isUnique': True,\
                      'sortAlgorithm': 'mergesort'}
 EXPECTED_15: list = ['The', 'bass', 'tuple', 'anyone', 'ananas',\
                      'banana', 'anywhere']
+EXPECTED_16: tuple = ['tuple', 'anyone', 'bass'],\
+                      ['ananas', 'anywhere', 'The', 'banana']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -234,3 +237,9 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_15
     shortestWordToLongest: bool = sortWordsByLength(testData)
     self.assertEqual(expectedValue, shortestWordToLongest)
+
+  def test_divideArray(self):
+    testData: list = TEST_DATA_11
+    expectedValue: tuple = EXPECTED_16
+    dividedArrray: tuple = divideArray(testData)
+    self.assertEqual(expectedValue, dividedArrray)
