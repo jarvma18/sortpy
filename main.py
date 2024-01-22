@@ -82,6 +82,13 @@ def sortWordsByLength(words: list):
   words.sort(key=len)
   return words
 
+def divideArray(array: list):
+  arrayLen = len(array)
+  return array[:arrayLen//2], array[arrayLen//2:]
+
+def mergeSort(words: list):
+  placeholder = 1
+
 def radixSort(words: list):
   # order words by the leftmost character (most significant)
   words: list = lexicographicSortOnChar(words, 0)
