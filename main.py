@@ -86,6 +86,10 @@ def divideArray(array: list):
   arrayLen = len(array)
   return array[:arrayLen//2], array[arrayLen//2:]
 
+def divideArrayRecursively(array: list):
+  firstHalf, secondHalf = divideArray(array)
+  
+
 def mergeSort(words: list):
   placeholder = 1
 

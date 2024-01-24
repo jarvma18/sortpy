@@ -19,6 +19,7 @@ from main import lexicographicSortOnChar
 from main import checkIfIndexIsInRange
 from main import sortWordsByLength
 from main import divideArray
+from main import divideArrayRecursively
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -243,3 +244,5 @@ class TestClass(unittest.TestCase):
     expectedValue: tuple = EXPECTED_16
     dividedArrray: tuple = divideArray(testData)
     self.assertEqual(expectedValue, dividedArrray)
+
+  # def test_divideArrayRecursively(self):
