@@ -34,3 +34,9 @@ I implemented MSD radix sort, so I start with most significant digit and work th
 ![](radix-msd.png)
 
 ![](radix-msd-final.png)
+
+## Merge sort
+
+Merge sort is comparison-based sorting algorithm. It is divide-and-conquer algorithm (that breaks a problem into sub-problems to simplify the needed solution). Merge sort is efficient and general-purpose.
+
+![](mergesort.png)
