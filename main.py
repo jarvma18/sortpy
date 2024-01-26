@@ -83,13 +83,11 @@ def sortWordsByLength(words: list):
   return words
 
 def divideArray(array: list):
-  arrayLen = len(array)
-  return array[:arrayLen//2], array[arrayLen//2:]
-
-def divideArrayRecursively(array: list):
-  firstHalf, secondHalf = divideArray(array)
+  dividedArray: list = []
+  for i in range(len(array)):
+    dividedArray.append([array[i]])
+  return dividedArray
   
-
 def mergeSort(words: list):
   placeholder = 1
 
