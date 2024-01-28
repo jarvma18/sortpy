@@ -75,8 +75,8 @@ EXPECTED_14: dict = {'fileName': 'words.txt', 'isUnique': True,\
                      'sortAlgorithm': 'mergesort'}
 EXPECTED_15: list = ['The', 'bass', 'tuple', 'anyone', 'ananas',\
                      'banana', 'anywhere']
-EXPECTED_16: tuple = [['tuple'], ['anyone'], ['bass'], ['ananas'],\
-                      ['anywhere'], ['The'], ['banana']]
+EXPECTED_16: tuple = ['tuple', 'anyone', 'bass'],\
+                      ['ananas', 'anywhere', 'The', 'banana']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'

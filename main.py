@@ -83,13 +83,15 @@ def sortWordsByLength(words: list):
   return words
 
 def divideArray(array: list):
-  dividedArray: list = []
-  for i in range(len(array)):
-    dividedArray.append([array[i]])
-  return dividedArray
+  arrayLen = len(array)
+  return array[:arrayLen//2], array[arrayLen//2:]
   
 def mergeSort(words: list):
-  placeholder = 1
+  if len(words) > 1:
+    firstHalf, secondHalf = divideArray(words)
+    mergeSort(firstHalf)
+    mergeSort(secondHalf)
+
 
 def radixSort(words: list):
   # order words by the leftmost character (most significant)
