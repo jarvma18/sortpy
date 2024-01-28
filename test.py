@@ -19,6 +19,7 @@ from main import lexicographicSortOnChar
 from main import checkIfIndexIsInRange
 from main import sortWordsByLength
 from main import divideArray
+from main import mergeSort
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -42,7 +43,19 @@ TEST_DATA_12: list = ['The', 'Project', 'Gutenberg',\
                       'with', 'almost', 'restrictions',\
                       'whatsoever', 'You', 'may', 'copy',\
                       'it', 'give', 'away', 'or', 're']
-TEST_DATA_13: list = ['main.py', '-u', 'sort=mergesort', 'words.txt']
+TEST_DATA_13: list = ['main.py', '-u', 'sort=merge', 'words.txt']
+TEST_DATA_14: list = ['tuple', 'anyones', 'bass', 'ananas',\
+                     'anywhere', 'The', 'banana', 'A']
+TEST_DATA_15: list = ['The', 'Project', 'Gutenberg',\
+                      'eBook', 'of', 'Art', 'War', 'This',\
+                      'ebook', 'is', 'for', 'the', 'use',\
+                      'anyone', 'anywhere', 'in', 'United',\
+                      'States', 'and', 'most', 'other',\
+                      'parts', 'world', 'at', 'no', 'cost',\
+                      'with', 'almost', 'restrictions',\
+                      'whatsoever', 'You', 'may', 'copy',\
+                      'it', 'give', 'away', 'or', 're']
+TEST_DATA_16: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -72,11 +85,23 @@ EXPECTED_13: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
 EXPECTED_14: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'mergesort'}
+                     'sortAlgorithm': 'merge'}
 EXPECTED_15: list = ['The', 'bass', 'tuple', 'anyone', 'ananas',\
                      'banana', 'anywhere']
 EXPECTED_16: tuple = ['tuple', 'anyone', 'bass'],\
                       ['ananas', 'anywhere', 'The', 'banana']
+EXPECTED_17: list = ['A', 'ananas', 'anyones', 'anywhere',\
+                    'banana', 'bass', 'The', 'tuple']
+EXPECTED_18: list = ['almost', 'and', 'anyone', 'anywhere',\
+                     'Art', 'at', 'away', 'copy', 'cost',\
+                     'eBook', 'ebook', 'for', 'give',\
+                     'Gutenberg', 'in', 'is', 'it', 'may',\
+                     'most', 'no', 'of', 'or', 'other',\
+                     'parts', 'Project', 're', 'restrictions',\
+                     'States', 'The', 'the', 'This', 'United',\
+                     'use', 'War', 'whatsoever', 'with',\
+                     'world', 'You']
+EXPECTED_19: list = [[['ananas'], [['anyone'], ['anywhere']]], ['A'], ['all']]
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -191,8 +216,6 @@ class TestClass(unittest.TestCase):
     bucketSortedData: list = radixBucketSort(testData, 3, 0, True)
     self.assertEqual(expectedValue, bucketSortedData)
 
-  # def test_radixBucketSort(self):
-
   def test_createBuckets(self):
     testData: list = TEST_DATA_7
     expectedValue: list = EXPECTED_9
@@ -243,3 +266,22 @@ class TestClass(unittest.TestCase):
     expectedValue: tuple = EXPECTED_16
     dividedArrray: tuple = divideArray(testData)
     self.assertEqual(expectedValue, dividedArrray)
+
+  def test_mergeSort(self):
+    testData: list = TEST_DATA_14
+    expectedValue: list = EXPECTED_17
+    mergeSort(testData)
+    self.assertEqual(expectedValue, testData)
+
+  def test_mergeSort_withLargerData(self):
+    testData: list = TEST_DATA_15
+    expectedValue: list = EXPECTED_18
+    mergeSort(testData)
+    self.assertEqual(expectedValue, testData)
+
+  def test_radixBucketSort(self):
+    testData: list = TEST_DATA_16
+    maxLen: int = len(max(testData, key=len))
+    expectedValue: list = EXPECTED_19
+    radixBucketSortedData: list = radixBucketSort(testData, maxLen, 1, False)
+    self.assertEqual(expectedValue, radixBucketSortedData)

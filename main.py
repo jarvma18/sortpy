@@ -85,13 +85,32 @@ def sortWordsByLength(words: list):
 def divideArray(array: list):
   arrayLen = len(array)
   return array[:arrayLen//2], array[arrayLen//2:]
-  
+
 def mergeSort(words: list):
   if len(words) > 1:
     firstHalf, secondHalf = divideArray(words)
     mergeSort(firstHalf)
     mergeSort(secondHalf)
+    i = 0
+    j = 0
+    k = 0
+    while i < len(firstHalf) and j < len(secondHalf):
+      if firstHalf[i].lower() <= secondHalf[j].lower():
+        words[k] = firstHalf[i]
+        i += 1
+      else:
+        words[k] = secondHalf[j]
+        j += 1
+      k += 1
+    while i < len(firstHalf):
+      words[k] = firstHalf[i]
+      i += 1
+      k += 1
 
+    while j < len(secondHalf):
+      words[k]=secondHalf[j]
+      j += 1
+      k += 1
 
 def radixSort(words: list):
   # order words by the leftmost character (most significant)
@@ -142,8 +161,9 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
   sortedFileContent: list = []
   if sortAlgorithm == 'radix':
     sortedFileContent: list = radixSort(fileContentArray)
-  elif sortAlgorithm == 'mergesort':
-    placeholder = 1
+  elif sortAlgorithm == 'merge':
+    mergeSort(fileContentArray)
+    sortedFileContent = fileContentArray
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
@@ -166,8 +186,8 @@ def readPassedArguments(arguments: list):
       argumentObject['isUnique'] = True
     elif i == 'sort=radix':
       argumentObject['sortAlgorithm'] = 'radix'
-    elif i == 'sort=mergesort':
-      argumentObject['sortAlgorithm'] = 'mergesort'
+    elif i == 'sort=merge':
+      argumentObject['sortAlgorithm'] = 'merge'
   return argumentObject
 
 checkArgumentLen(sys.argv)
