@@ -17,8 +17,11 @@ python3 main.py words.txt | uniq | head -n5
 // Basic lexicographic sort with the -u (unique) option
 python3 main.py -u words.txt | head -n5
 
-// Radix lexicographic sort with the -u (unique) option
+// Radix radix sort with the -u (unique) option
 python3 main.py -u sort=radix words.txt | head -n5
+
+// Radix merge sort with the -u (unique) option
+python3 main.py -u sort=merge words.txt | head -n5
 
 // Run unit tests
 python3 -m unittest test.py
