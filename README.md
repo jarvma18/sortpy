@@ -43,3 +43,8 @@ I implemented MSD radix sort, so I start with most significant digit and work th
 Merge sort is comparison-based sorting algorithm. It is divide-and-conquer algorithm (that breaks a problem into sub-problems to simplify the needed solution). Merge sort is efficient and general-purpose.
 
 ![](mergesort.png)
+
+## Quick sort
+
+Quick sort is efficient general-purpose sorting algorithm. Like merge sort the quick sort is divide-and-conquer algorithm. It is said to be slightly faster than merge sort or heap sort with randomized data.
+

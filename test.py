@@ -56,6 +56,7 @@ TEST_DATA_15: list = ['The', 'Project', 'Gutenberg',\
                       'whatsoever', 'You', 'may', 'copy',\
                       'it', 'give', 'away', 'or', 're']
 TEST_DATA_16: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
+TEST_DATA_17: list = ['main.py', '-u', 'sort=quick', 'words.txt']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -102,6 +103,8 @@ EXPECTED_18: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
 EXPECTED_19: list = [[['ananas'], [['anyone'], ['anywhere']]], ['A'], ['all']]
+EXPECTED_20: dict = {'fileName': 'words.txt', 'isUnique': True,\
+                     'sortAlgorithm': 'quick'}
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -191,6 +194,12 @@ class TestClass(unittest.TestCase):
   def test_readPassedArgumentsFilenameUniqueAndMergesortIsProvided(self):
     testData: list = TEST_DATA_13
     expectedValue: dict = EXPECTED_14
+    argumentsObject: dict = readPassedArguments(testData)
+    self.assertEqual(expectedValue, argumentsObject)
+
+  def test_readPassedArgumentsFilenameUniqueAndQuicksortIsProvided(self):
+    testData: list = TEST_DATA_17
+    expectedValue: dict = EXPECTED_20
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 

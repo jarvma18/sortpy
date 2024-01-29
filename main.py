@@ -164,6 +164,8 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
   elif sortAlgorithm == 'merge':
     mergeSort(fileContentArray)
     sortedFileContent = fileContentArray
+  elif sortAlgorithm == 'quick':
+    placeholder = 1
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
@@ -188,6 +190,8 @@ def readPassedArguments(arguments: list):
       argumentObject['sortAlgorithm'] = 'radix'
     elif i == 'sort=merge':
       argumentObject['sortAlgorithm'] = 'merge'
+    elif i == 'sort=quick':
+      argumentObject['sortAlgorithm'] = 'quick'
   return argumentObject
 
 checkArgumentLen(sys.argv)
