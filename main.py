@@ -83,7 +83,7 @@ def sortWordsByLength(words: list):
   return words
 
 def divideArray(array: list):
-  arrayLen = len(array)
+  arrayLen: int = len(array)
   return array[:arrayLen//2], array[arrayLen//2:]
 
 def mergeSort(words: list):
@@ -91,9 +91,9 @@ def mergeSort(words: list):
     firstHalf, secondHalf = divideArray(words)
     mergeSort(firstHalf)
     mergeSort(secondHalf)
-    i = 0
-    j = 0
-    k = 0
+    i: int = 0
+    j: int = 0
+    k: int = 0
     while i < len(firstHalf) and j < len(secondHalf):
       if firstHalf[i].lower() <= secondHalf[j].lower():
         words[k] = firstHalf[i]
@@ -124,6 +124,11 @@ def radixSort(words: list):
     sortedBuckets.append(radixBucketSort(buckets[i], maxLen, 1, False))
   sortedWords = flatten(sortedBuckets)
   return sortedWords
+
+def quickSort(words: list):
+  lenOfWords: int = len(words)
+  # our pivot is always the last character in array
+  pivot: str = words[lenOfWords - 1]
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
