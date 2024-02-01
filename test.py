@@ -20,6 +20,7 @@ from main import checkIfIndexIsInRange
 from main import sortWordsByLength
 from main import divideArray
 from main import mergeSort
+from main import quickSort
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -57,6 +58,15 @@ TEST_DATA_15: list = ['The', 'Project', 'Gutenberg',\
                       'it', 'give', 'away', 'or', 're']
 TEST_DATA_16: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
 TEST_DATA_17: list = ['main.py', '-u', 'sort=quick', 'words.txt']
+TEST_DATA_18: list = ['The', 'Project', 'Gutenberg',\
+                      'eBook', 'of', 'Art', 'War', 'This',\
+                      'ebook', 'is', 'for', 'the', 'use',\
+                      'anyone', 'anywhere', 'in', 'United',\
+                      'States', 'and', 'most', 'other',\
+                      'parts', 'world', 'at', 'no', 'cost',\
+                      'with', 'almost', 'restrictions',\
+                      'whatsoever', 'You', 'may', 'copy',\
+                      'it', 'give', 'away', 'or', 're']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -105,6 +115,15 @@ EXPECTED_18: list = ['almost', 'and', 'anyone', 'anywhere',\
 EXPECTED_19: list = [[['ananas'], [['anyone'], ['anywhere']]], ['A'], ['all']]
 EXPECTED_20: dict = {'fileName': 'words.txt', 'isUnique': True,\
                      'sortAlgorithm': 'quick'}
+EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
+                     'Art', 'at', 'away', 'copy', 'cost',\
+                     'eBook', 'ebook', 'for', 'give',\
+                     'Gutenberg', 'in', 'is', 'it', 'may',\
+                     'most', 'no', 'of', 'or', 'other',\
+                     'parts', 'Project', 're', 'restrictions',\
+                     'States', 'The', 'the', 'This', 'United',\
+                     'use', 'War', 'whatsoever', 'with',\
+                     'world', 'You']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -294,3 +313,9 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_19
     radixBucketSortedData: list = radixBucketSort(testData, maxLen, 1, False)
     self.assertEqual(expectedValue, radixBucketSortedData)
+
+  def test_quickSort_withLargerData(self):
+    testData: list = TEST_DATA_18
+    expectedValue: list = EXPECTED_21
+    quickSort(testData)
+    self.assertEqual(expectedValue, testData)
