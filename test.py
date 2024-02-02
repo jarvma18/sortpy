@@ -21,6 +21,7 @@ from main import sortWordsByLength
 from main import divideArray
 from main import mergeSort
 from main import quickSort
+from main import divideArrayByIndex
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -124,6 +125,8 @@ EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'States', 'The', 'the', 'This', 'United',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
+EXPECTED_22: tuple = ['tuple', 'anyones', 'bass'],\
+                    ['anywhere', 'The', 'banana', 'A']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -319,3 +322,9 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_21
     quickSort(testData)
     self.assertEqual(expectedValue, testData)
+
+  def test_divideByArrayIndex(self):
+    testData: list = TEST_DATA_14
+    expectedValue: list = EXPECTED_22
+    dividedArray = divideArrayByIndex(testData, 3)
+    self.assertEqual(expectedValue, dividedArray)

@@ -125,21 +125,28 @@ def radixSort(words: list):
   sortedWords = flatten(sortedBuckets)
   return sortedWords
 
+def divideArrayByIndex(array: list, i: int):
+  return array[:i], array[i + 1:]
+
 def quickSort(words: list):
-  lenOfWords: int = len(words)
-  # our pivot is always the last character in array
-  pivot: str = words[lenOfWords - 1]
-  tempWord: str = ''
-  swapCounter: int = -1
-  for i in range(0, lenOfWords):
-    print(i)
-    if i == lenOfWords - 1 or words[i].lower() < pivot.lower():
-      swapCounter += 1
-      tempWord = words[swapCounter]
-      words[swapCounter] = words[i]
-      words[i] = tempWord
-      print(words)
-      tempWord = ''
+  if len(words) > 1:
+    lenOfWords: int = len(words)
+    # our pivot is always the last character in array
+    pivot: str = words[lenOfWords - 1]
+    tempWord: str = ''
+    swapCounter: int = -1
+    for i in range(0, lenOfWords):
+      print(i)
+      if i == lenOfWords - 1 or words[i].lower() < pivot.lower():
+        swapCounter += 1
+        tempWord = words[swapCounter]
+        words[swapCounter] = words[i]
+        words[i] = tempWord
+        tempWord = ''
+    print(words)
+    first, second = divideArrayByIndex(words, swapCounter)
+    quickSort(first)
+    quickSort(second)
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
