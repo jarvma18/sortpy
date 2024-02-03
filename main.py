@@ -108,7 +108,7 @@ def mergeSort(words: list):
       k += 1
 
     while j < len(secondHalf):
-      words[k]=secondHalf[j]
+      words[k] = secondHalf[j]
       j += 1
       k += 1
 
@@ -133,6 +133,7 @@ def quickSort(words: list):
     lenOfWords: int = len(words)
     # our pivot is always the last character in array
     pivot: str = words[lenOfWords - 1]
+    print(pivot)
     tempWord: str = ''
     swapCounter: int = -1
     for i in range(0, lenOfWords):
@@ -144,9 +145,12 @@ def quickSort(words: list):
         words[i] = tempWord
         tempWord = ''
     print(words)
+    mid = words[swapCounter]
     first, second = divideArrayByIndex(words, swapCounter)
     quickSort(first)
     quickSort(second)
+    words = first + [mid] + second
+    print(words)
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
