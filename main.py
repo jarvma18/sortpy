@@ -137,20 +137,18 @@ def quickSort(words: list):
     tempWord: str = ''
     swapCounter: int = -1
     for i in range(0, lenOfWords):
-      print(i)
       if i == lenOfWords - 1 or words[i].lower() < pivot.lower():
         swapCounter += 1
         tempWord = words[swapCounter]
         words[swapCounter] = words[i]
         words[i] = tempWord
         tempWord = ''
-    print(words)
     mid = words[swapCounter]
     first, second = divideArrayByIndex(words, swapCounter)
+    words = first + [mid] + second
+    print(first + [mid] + second)
     quickSort(first)
     quickSort(second)
-    words = first + [mid] + second
-    print(words)
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
