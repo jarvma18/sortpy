@@ -133,22 +133,22 @@ def quickSort(words: list):
     lenOfWords: int = len(words)
     # our pivot is always the last character in array
     pivot: str = words[lenOfWords - 1]
-    print(pivot)
     tempWord: str = ''
     swapCounter: int = -1
     for i in range(0, lenOfWords):
-      if i == lenOfWords - 1 or words[i].lower() < pivot.lower():
+      if i == lenOfWords - 1 or words[i].lower() <= pivot.lower():
         swapCounter += 1
         tempWord = words[swapCounter]
         words[swapCounter] = words[i]
         words[i] = tempWord
         tempWord = ''
-    mid = words[swapCounter]
+    mid: str = words[swapCounter]
     first, second = divideArrayByIndex(words, swapCounter)
-    words = first + [mid] + second
-    print(first + [mid] + second)
-    quickSort(first)
-    quickSort(second)
+    first: list = quickSort(first)
+    second: list = quickSort(second)
+    return first + [mid] + second
+  else:
+    return words
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
@@ -188,9 +188,9 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
     sortedFileContent: list = radixSort(fileContentArray)
   elif sortAlgorithm == 'merge':
     mergeSort(fileContentArray)
-    sortedFileContent = fileContentArray
+    sortedFileContent: list = fileContentArray
   elif sortAlgorithm == 'quick':
-    placeholder = 1
+    sortedFileContent: list = quickSort(fileContentArray)
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;

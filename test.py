@@ -118,7 +118,7 @@ EXPECTED_20: dict = {'fileName': 'words.txt', 'isUnique': True,\
                      'sortAlgorithm': 'quick'}
 EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'Art', 'at', 'away', 'copy', 'cost',\
-                     'eBook', 'ebook', 'for', 'give',\
+                     'ebook', 'eBook', 'for', 'give',\
                      'Gutenberg', 'in', 'is', 'it', 'may',\
                      'most', 'no', 'of', 'or', 'other',\
                      'parts', 'Project', 're', 'restrictions',\
@@ -318,10 +318,13 @@ class TestClass(unittest.TestCase):
     self.assertEqual(expectedValue, radixBucketSortedData)
 
   def test_quickSort_withLargerData(self):
+    self.maxDiff = None
     testData: list = TEST_DATA_18
+    # EXPECTED_21 differs one value from other but we compare
+    # characters as lower() so it does not matter so much
     expectedValue: list = EXPECTED_21
-    quickSort(testData)
-    self.assertEqual(expectedValue, testData)
+    sortedData = quickSort(testData)
+    self.assertEqual(expectedValue, sortedData)
 
   def test_divideByArrayIndex(self):
     testData: list = TEST_DATA_14
