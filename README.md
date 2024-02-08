@@ -49,3 +49,5 @@ Merge sort is comparison-based sorting algorithm. It is divide-and-conquer algor
 Quick sort is efficient general-purpose sorting algorithm. Like merge sort the quick sort is divide-and-conquer algorithm. It is said to be slightly faster than merge sort or heap sort with randomized data.
 
 I implemented the quick sort with pivot that is last element in word array. I chose to do that because it was very common way to implement the quick sort algorithm.
+
+![](quicksort.png)
