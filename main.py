@@ -217,6 +217,8 @@ def readPassedArguments(arguments: list):
       argumentObject['sortAlgorithm'] = 'merge'
     elif i == 'sort=quick':
       argumentObject['sortAlgorithm'] = 'quick'
+    elif i == 'sort=heap':
+      argumentObject['sortAlgorithm'] = 'heap'
   return argumentObject
 
 checkArgumentLen(sys.argv)
