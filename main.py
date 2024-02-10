@@ -150,6 +150,17 @@ def quickSort(words: list):
   else:
     return words
 
+def swapFirstAndLastItemInArray(array: list):
+  lastIndex = len(array) - 1
+  firstItem: str = array[0]
+  lastItem: str = array[lastIndex]
+  array[0] = lastItem
+  array[lastIndex] = firstItem
+  return array
+
+def heapSort(words: list):
+  placeholder = 1
+
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
   for i in words:
@@ -191,6 +202,8 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
     sortedFileContent: list = fileContentArray
   elif sortAlgorithm == 'quick':
     sortedFileContent: list = quickSort(fileContentArray)
+  elif sortAlgorithm == 'heap':
+    placeholder = 1
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;

@@ -22,6 +22,7 @@ from main import divideArray
 from main import mergeSort
 from main import quickSort
 from main import divideArrayByIndex
+from main import swapFirstAndLastItemInArray
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -69,6 +70,7 @@ TEST_DATA_18: list = ['The', 'Project', 'Gutenberg',\
                       'whatsoever', 'You', 'may', 'copy',\
                       'it', 'give', 'away', 'or', 're']
 TEST_DATA_19: list = ['main.py', '-u', 'sort=heap', 'words.txt']
+TEST_DATA_20: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -130,6 +132,7 @@ EXPECTED_22: tuple = ['tuple', 'anyones', 'bass'],\
                     ['anywhere', 'The', 'banana', 'A']
 EXPECTED_23: dict = {'fileName': 'words.txt', 'isUnique': True,\
                      'sortAlgorithm': 'heap'}
+EXPECTED_24: list = ['all', 'A', 'anywhere', 'anyone', 'ananas']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -340,3 +343,9 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_22
     dividedArray = divideArrayByIndex(testData, 3)
     self.assertEqual(expectedValue, dividedArray)
+
+  def test_swapFirstAndLastItemInArray(self):
+    testData: list = TEST_DATA_20
+    expectedValue: list = EXPECTED_24
+    swappedArray = swapFirstAndLastItemInArray(testData)
+    self.assertEqual(expectedValue, swappedArray)
