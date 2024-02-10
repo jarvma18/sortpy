@@ -68,6 +68,7 @@ TEST_DATA_18: list = ['The', 'Project', 'Gutenberg',\
                       'with', 'almost', 'restrictions',\
                       'whatsoever', 'You', 'may', 'copy',\
                       'it', 'give', 'away', 'or', 're']
+TEST_DATA_19: list = ['main.py', '-u', 'sort=heap', 'words.txt']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -127,6 +128,8 @@ EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'world', 'You']
 EXPECTED_22: tuple = ['tuple', 'anyones', 'bass'],\
                     ['anywhere', 'The', 'banana', 'A']
+EXPECTED_23: dict = {'fileName': 'words.txt', 'isUnique': True,\
+                     'sortAlgorithm': 'heap'}
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -222,6 +225,12 @@ class TestClass(unittest.TestCase):
   def test_readPassedArgumentsFilenameUniqueAndQuicksortIsProvided(self):
     testData: list = TEST_DATA_17
     expectedValue: dict = EXPECTED_20
+    argumentsObject: dict = readPassedArguments(testData)
+    self.assertEqual(expectedValue, argumentsObject)
+
+  def test_readPassedArgumentsFilenameUniqueAndHeapsortIsProvided(self):
+    testData: list = TEST_DATA_19
+    expectedValue: dict = EXPECTED_23
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 
