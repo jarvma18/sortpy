@@ -150,14 +150,32 @@ def quickSort(words: list):
   else:
     return words
 
-def swapFirstAndLastItemInArray(array: list):
-  lastIndex = len(array) - 1
-  firstItem: str = array[0]
-  lastItem: str = array[lastIndex]
-  array[0] = lastItem
-  array[lastIndex] = firstItem
+def maxHeapify(words: list, nodeIndex: int):
+  largestIndex: int = nodeIndex
+  maxIndex: int = len(words) - 1
+  leftIndex: int = 2 * nodeIndex + 1
+  rightIndex: int = 2 * nodeIndex + 2
+  if leftIndex < maxIndex and words[leftIndex].lower() <= words[nodeIndex].lower():
+    print('lol')
+    words = swap(words, nodeIndex, leftIndex)
+    largestIndex = leftIndex
+  if rightIndex < maxIndex and words[rightIndex].lower() <= words[nodeIndex].lower():
+    print('lol2')
+    words = swap(words, nodeIndex, rightIndex)
+    largestIndex = rightIndex
+  if largestIndex != nodeIndex:
+    words = maxHeapify(words, largestIndex)
+  else:
+    return words
+
+def swap(array: list, i: int, j: int):
+  temp: str = array[i]
+  array[i] = array[j]
+  array[j] = temp
   return array
 
+# parent = (i - 1) / 2
+# lastNonLeafNode = (Math.floor(maxLength) / 2) - 1
 def heapSort(words: list):
   placeholder = 1
 
