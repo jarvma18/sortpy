@@ -356,9 +356,15 @@ class TestClass(unittest.TestCase):
     swappedArray = swap(testData, 0, len(testData) - 1)
     self.assertEqual(expectedValue, swappedArray)
 
-  def test_maxHeapify(self):
+  def test_maxHeapifyLastNonLeafNode(self):
     testData: list = TEST_DATA_21
     expectedValue: list = EXPECTED_25
     lastNonLeafIndex: int = math.floor(len(testData) / 2) - 1
-    maxHeapifiedArray = maxHeapify(testData, lastNonLeafIndex)
+    maxHeapifiedArray: list = maxHeapify(testData, lastNonLeafIndex)
+    self.assertEqual(expectedValue, maxHeapifiedArray)
+
+  def test_maxHeapifyRootNode(self):
+    testData: list = TEST_DATA_21
+    expectedValue: list = EXPECTED_25
+    maxHeapifiedArray: list = maxHeapify(testData, 0)
     self.assertEqual(expectedValue, maxHeapifiedArray)

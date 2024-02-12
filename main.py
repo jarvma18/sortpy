@@ -154,9 +154,11 @@ def swap(array: list, i: int, j: int):
   temp: str = array[i]
   array[i] = array[j]
   array[j] = temp
+  print(array)
   return array
 
 def maxHeapify(words: list, nodeIndex: int):
+  print('maxheap')
   largestIndex: int = nodeIndex
   maxIndex: int = len(words) - 1
   leftIndex: int = 2 * nodeIndex + 1
@@ -164,19 +166,17 @@ def maxHeapify(words: list, nodeIndex: int):
   print(largestIndex, maxIndex, leftIndex, rightIndex)
   if leftIndex <= maxIndex and words[leftIndex].lower() <= words[nodeIndex].lower():
     print(words[nodeIndex].lower())
-    words: list = swap(words, nodeIndex, leftIndex)
+    words = swap(words, nodeIndex, leftIndex)
     largestIndex: int = leftIndex
   if rightIndex <= maxIndex and words[rightIndex].lower() <= words[nodeIndex].lower():
     print(words[nodeIndex].lower())
-    words: list = swap(words, nodeIndex, rightIndex)
+    words = swap(words, nodeIndex, rightIndex)
     largestIndex: int = rightIndex
   print('lol', largestIndex, nodeIndex, words)
   if largestIndex != nodeIndex:
     print('1')
-    words: list = maxHeapify(words, largestIndex)
-  else:
-    print('2')
-    return words
+    words = maxHeapify(words, largestIndex)
+  return words;
 
 # parent = (i - 1) / 2
 # lastNonLeafNode = (Math.floor(maxLength) / 2) - 1
