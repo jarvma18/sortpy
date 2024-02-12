@@ -73,15 +73,8 @@ TEST_DATA_18: list = ['The', 'Project', 'Gutenberg',\
                       'it', 'give', 'away', 'or', 're']
 TEST_DATA_19: list = ['main.py', '-u', 'sort=heap', 'words.txt']
 TEST_DATA_20: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
-TEST_DATA_21: list = ['The', 'Project', 'Gutenberg',\
-                      'eBook', 'of', 'Art', 'War', 'This',\
-                      'ebook', 'is', 'for', 'the', 'use',\
-                      'anyone', 'anywhere', 'in', 'United',\
-                      'States', 'and', 'most', 'other',\
-                      'parts', 'world', 'at', 'no', 'cost',\
-                      'with', 'almost', 'restrictions',\
-                      'whatsoever', 'You', 'may', 'copy',\
-                      'it', 'give', 'away', 'or', 're']
+TEST_DATA_21: list = ['tuple', 'anyones', 'bass', 'ananas',\
+                     'anywhere', 'The', 'banana', 'A']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -144,15 +137,8 @@ EXPECTED_22: tuple = ['tuple', 'anyones', 'bass'],\
 EXPECTED_23: dict = {'fileName': 'words.txt', 'isUnique': True,\
                      'sortAlgorithm': 'heap'}
 EXPECTED_24: list = ['all', 'A', 'anywhere', 'anyone', 'ananas']
-EXPECTED_25: list = ['The', 'Project', 'Gutenberg',\
-                      'eBook', 'of', 'Art', 'War', 'This',\
-                      'ebook', 'is', 'for', 'the', 'use',\
-                      'anyone', 'anywhere', 'in', 'United',\
-                      'States', 'and', 'most', 'other',\
-                      'parts', 'world', 'at', 'no', 'cost',\
-                      'with', 'almost', 'restrictions',\
-                      'whatsoever', 'You', 'may', 'copy',\
-                      'it', 'give', 'away', 'or', 're']
+EXPECTED_25: list = ['tuple', 'anyones', 'bass', 'ananas',\
+                     'anywhere', 'The', 'banana', 'A']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -370,9 +356,9 @@ class TestClass(unittest.TestCase):
     swappedArray = swap(testData, 0, len(testData) - 1)
     self.assertEqual(expectedValue, swappedArray)
 
-  def test_maxHeapifyWithLargerData(self):
+  def test_maxHeapify(self):
     testData: list = TEST_DATA_21
     expectedValue: list = EXPECTED_25
     lastNonLeafIndex: int = math.floor(len(testData) / 2) - 1
-    maxHeapifiedArray = maxHeapify(testData, 0)
+    maxHeapifiedArray = maxHeapify(testData, lastNonLeafIndex)
     self.assertEqual(expectedValue, maxHeapifiedArray)
