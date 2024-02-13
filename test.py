@@ -137,8 +137,8 @@ EXPECTED_22: tuple = ['tuple', 'anyones', 'bass'],\
 EXPECTED_23: dict = {'fileName': 'words.txt', 'isUnique': True,\
                      'sortAlgorithm': 'heap'}
 EXPECTED_24: list = ['all', 'A', 'anywhere', 'anyone', 'ananas']
-EXPECTED_25: list = ['tuple', 'anyones', 'bass', 'ananas',\
-                     'anywhere', 'The', 'banana', 'A']
+EXPECTED_25: list = ['tuple', 'anyones', 'bass', 'A',\
+                     'anywhere', 'The', 'banana', 'ananas']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
