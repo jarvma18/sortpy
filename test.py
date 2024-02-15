@@ -139,6 +139,8 @@ EXPECTED_23: dict = {'fileName': 'words.txt', 'isUnique': True,\
 EXPECTED_24: list = ['all', 'A', 'anywhere', 'anyone', 'ananas']
 EXPECTED_25: list = ['tuple', 'anyones', 'bass', 'A',\
                      'anywhere', 'The', 'banana', 'ananas']
+EXPECTED_26: list = ['anyones', 'A', 'bass', 'ananas',\
+                     'anywhere', 'The', 'banana', 'tuple']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -365,6 +367,6 @@ class TestClass(unittest.TestCase):
 
   def test_maxHeapifyRootNode(self):
     testData: list = TEST_DATA_21
-    expectedValue: list = EXPECTED_25
+    expectedValue: list = EXPECTED_26
     maxHeapifiedArray: list = maxHeapify(testData, 0)
     self.assertEqual(expectedValue, maxHeapifiedArray)
