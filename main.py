@@ -1,4 +1,5 @@
 import sys
+import math
 
 def printWordsFromArray(words: list):
   for i in words:
@@ -181,7 +182,17 @@ def maxHeapify(words: list, nodeIndex: int):
 # parent = (i - 1) / 2
 # lastNonLeafNode = (Math.floor(maxLength) / 2) - 1
 def heapSort(words: list):
-  placeholder = 1
+  sortedWords: list = [];
+  while len(words) > 0:
+    maxLen: int = len(words)
+    lastNonLeafNodeIndex: int = (math.floor(maxLen) / 2) - 1
+    for i in range(lastNonLeafNodeIndex, -1, -1):
+      words = maxHeapify(words, i);
+    sortedWords.append(words[0])
+    swap(words, 0, maxLen - 1)
+    words.pop()
+    words = maxHeapify(words, 0)
+  return words;
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []

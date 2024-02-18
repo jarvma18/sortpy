@@ -25,6 +25,7 @@ from main import quickSort
 from main import divideArrayByIndex
 from main import swap
 from main import maxHeapify
+from main import heapSort
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -338,7 +339,6 @@ class TestClass(unittest.TestCase):
     self.assertEqual(expectedValue, radixBucketSortedData)
 
   def test_quickSort_withLargerData(self):
-    self.maxDiff = None
     testData: list = TEST_DATA_18
     # EXPECTED_21 differs one value from other but we compare
     # characters as lower() so it does not matter so much
@@ -370,3 +370,12 @@ class TestClass(unittest.TestCase):
     expectedValue: list = EXPECTED_26
     maxHeapifiedArray: list = maxHeapify(testData, 0)
     self.assertEqual(expectedValue, maxHeapifiedArray)
+
+  def test_mergeSort_withLargerData(self):
+    self.maxDiff = None
+    testData: list = TEST_DATA_18
+    # EXPECTED_21 differs one value from other but we compare
+    # characters as lower() so it does not matter so much
+    expectedValue: list = EXPECTED_21
+    sortedData = mergeSort(testData)
+    self.assertEqual(expectedValue, sortedData)
