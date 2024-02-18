@@ -76,6 +76,15 @@ TEST_DATA_19: list = ['main.py', '-u', 'sort=heap', 'words.txt']
 TEST_DATA_20: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
 TEST_DATA_21: list = ['tuple', 'anyones', 'bass', 'ananas',\
                      'anywhere', 'The', 'banana', 'A']
+TEST_DATA_22: list = ['The', 'Project', 'Gutenberg',\
+                      'eBook', 'of', 'Art', 'War', 'This',\
+                      'ebook', 'is', 'for', 'the', 'use',\
+                      'anyone', 'anywhere', 'in', 'United',\
+                      'States', 'and', 'most', 'other',\
+                      'parts', 'world', 'at', 'no', 'cost',\
+                      'with', 'almost', 'restrictions',\
+                      'whatsoever', 'You', 'may', 'copy',\
+                      'it', 'give', 'away', 'or', 're']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -142,6 +151,15 @@ EXPECTED_25: list = ['tuple', 'anyones', 'bass', 'A',\
                      'anywhere', 'The', 'banana', 'ananas']
 EXPECTED_26: list = ['anyones', 'A', 'bass', 'ananas',\
                      'anywhere', 'The', 'banana', 'tuple']
+EXPECTED_27: list = ['almost', 'and', 'anyone', 'anywhere',\
+                     'Art', 'at', 'away', 'copy', 'cost',\
+                     'eBook', 'ebook', 'for', 'give',\
+                     'Gutenberg', 'in', 'is', 'it', 'may',\
+                     'most', 'no', 'of', 'or', 'other',\
+                     'parts', 'Project', 're', 'restrictions',\
+                     'States', 'the', 'The', 'This', 'United',\
+                     'use', 'War', 'whatsoever', 'with',\
+                     'world', 'You']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -361,7 +379,7 @@ class TestClass(unittest.TestCase):
   def test_maxHeapifyLastNonLeafNode(self):
     testData: list = TEST_DATA_21
     expectedValue: list = EXPECTED_25
-    lastNonLeafIndex: int = math.floor(len(testData) / 2) - 1
+    lastNonLeafIndex: int = math.floor(len(testData) / 2 - 1)
     maxHeapifiedArray: list = maxHeapify(testData, lastNonLeafIndex)
     self.assertEqual(expectedValue, maxHeapifiedArray)
 
@@ -371,11 +389,11 @@ class TestClass(unittest.TestCase):
     maxHeapifiedArray: list = maxHeapify(testData, 0)
     self.assertEqual(expectedValue, maxHeapifiedArray)
 
-  def test_mergeSort_withLargerData(self):
+  def test_heapSort_withLargerData(self):
     self.maxDiff = None
-    testData: list = TEST_DATA_18
+    testData: list = TEST_DATA_22
     # EXPECTED_21 differs one value from other but we compare
     # characters as lower() so it does not matter so much
-    expectedValue: list = EXPECTED_21
-    sortedData = mergeSort(testData)
+    expectedValue: list = EXPECTED_27
+    sortedData = heapSort(testData)
     self.assertEqual(expectedValue, sortedData)

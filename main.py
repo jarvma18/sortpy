@@ -155,27 +155,20 @@ def swap(array: list, i: int, j: int):
   temp: str = array[i]
   array[i] = array[j]
   array[j] = temp
-  print(array)
   return array
 
 def maxHeapify(words: list, nodeIndex: int):
-  print('maxheap')
   largestIndex: int = nodeIndex
   maxIndex: int = len(words) - 1
   leftIndex: int = 2 * nodeIndex + 1
   rightIndex: int = 2 * nodeIndex + 2
-  print(largestIndex, maxIndex, leftIndex, rightIndex)
   if leftIndex <= maxIndex and words[leftIndex].lower() <= words[nodeIndex].lower():
-    print(words[nodeIndex].lower())
     words = swap(words, nodeIndex, leftIndex)
     largestIndex: int = leftIndex
   if rightIndex <= maxIndex and words[rightIndex].lower() <= words[nodeIndex].lower():
-    print(words[nodeIndex].lower())
     words = swap(words, nodeIndex, rightIndex)
     largestIndex: int = rightIndex
-  print('lol', largestIndex, nodeIndex, words)
   if largestIndex != nodeIndex:
-    print('1')
     words = maxHeapify(words, largestIndex)
   return words;
 
@@ -185,14 +178,14 @@ def heapSort(words: list):
   sortedWords: list = [];
   while len(words) > 0:
     maxLen: int = len(words)
-    lastNonLeafNodeIndex: int = (math.floor(maxLen) / 2) - 1
+    lastNonLeafNodeIndex: int = math.floor(maxLen / 2 - 1)
     for i in range(lastNonLeafNodeIndex, -1, -1):
       words = maxHeapify(words, i);
     sortedWords.append(words[0])
     swap(words, 0, maxLen - 1)
     words.pop()
     words = maxHeapify(words, 0)
-  return words;
+  return sortedWords;
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
