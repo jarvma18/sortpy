@@ -229,7 +229,7 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
   elif sortAlgorithm == 'quick':
     sortedFileContent: list = quickSort(fileContentArray)
   elif sortAlgorithm == 'heap':
-    placeholder = 1
+    sortedFileContent: list = heapSort(fileContentArray)
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
