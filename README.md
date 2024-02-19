@@ -65,3 +65,21 @@ I implemented the quick sort with pivot that is last element in word array. I ch
 ## Heap sort
 
 Heap sort is comparison-based sorting algorithm. Heap sort divides the array into a sorted and an unsorted. It iteratively shrink the unsorted array by extracting the current largest item from it and placing it to sorted array.
+
+List of words is turned to tree model and the tree is max heapified to get the first word in lexicographic order to root node and then added to sorted array. This process is repeated until no nodes are left to unsorted array.
+
+Here are some formulas used in tree model:
+
+```
+# lastNonLeafNodeIndex = math.floor((maxLength) / 2 - 1)
+# leftNodeIndex: int = 2 * i + 1
+# rightNodeIndex: int = 2 * i + 2
+# parentNodeIndex = (i - 1) / 2
+```
+
+![](heap1.png)
+![](heap2.png)
+![](heap3.png)
+![](heap4.png)
+![](heap5.png)
+And the process starts again..

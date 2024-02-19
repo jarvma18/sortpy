@@ -172,8 +172,6 @@ def maxHeapify(words: list, nodeIndex: int):
     words = maxHeapify(words, largestIndex)
   return words;
 
-# parent = (i - 1) / 2
-# lastNonLeafNode = (Math.floor(maxLength) / 2) - 1
 def heapSort(words: list):
   sortedWords: list = [];
   while len(words) > 0:
