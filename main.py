@@ -185,6 +185,16 @@ def heapSort(words: list):
     words = maxHeapify(words, 0)
   return sortedWords;
 
+def hashArray(array: list, randomValue):
+  lenOfArray = len(array)
+  hashedArray = []
+  for i in range(lenOfArray):
+    hashedArray.append(hash(hash(array[i]) + hash(randomValue)))
+  return hashedArray
+
+def randomSort(words: list):
+  placeholder = 1
+
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
   for i in words:
@@ -228,6 +238,8 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
     sortedFileContent: list = quickSort(fileContentArray)
   elif sortAlgorithm == 'heap':
     sortedFileContent: list = heapSort(fileContentArray)
+  elif sortAlgorithm == 'random':
+    placeholder = 1
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
@@ -256,6 +268,8 @@ def readPassedArguments(arguments: list):
       argumentObject['sortAlgorithm'] = 'quick'
     elif i == 'sort=heap':
       argumentObject['sortAlgorithm'] = 'heap'
+    elif i == 'sort=random':
+      argumentObject['sortAlgorithm'] = 'random'
   return argumentObject
 
 checkArgumentLen(sys.argv)
