@@ -29,6 +29,9 @@ python3 main.py -u sort=quick words.txt | head -n50
 // Heap sort with the -u (unique) option
 python3 main.py -u sort=heap words.txt | head -n50
 
+// Random sort with the -u (unique) option
+python3 main.py -u sort=random words.txt | head -n50
+
 // Run unit tests
 python3 -m unittest test.py
 ```
@@ -83,3 +86,5 @@ Here are some formulas used in tree model:
 ![](heap4.png)
 ![](heap5.png)
 And the process starts again..
+
+## Random sort
