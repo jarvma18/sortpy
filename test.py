@@ -26,6 +26,7 @@ from main import divideArrayByIndex
 from main import swap
 from main import maxHeapify
 from main import heapSort
+from main import hashArray
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -85,6 +86,8 @@ TEST_DATA_22: list = ['The', 'Project', 'Gutenberg',\
                       'with', 'almost', 'restrictions',\
                       'whatsoever', 'You', 'may', 'copy',\
                       'it', 'give', 'away', 'or', 're']
+TEST_DATA_23: list = ['main.py', '-u', 'sort=random', 'words.txt']
+TEST_DATA_24: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -160,6 +163,9 @@ EXPECTED_27: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'States', 'the', 'The', 'This', 'United',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
+EXPECTED_28: dict = {'fileName': 'words.txt', 'isUnique': True,\
+                     'sortAlgorithm': 'random'}
+EXPECTED_29: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -264,6 +270,12 @@ class TestClass(unittest.TestCase):
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 
+  def test_readPassedArgumentsFilenameUniqueAndRandomsortIsProvided(self):
+    testData: list = TEST_DATA_23
+    expectedValue: dict = EXPECTED_28
+    argumentsObject: dict = readPassedArguments(testData)
+    self.assertEqual(expectedValue, argumentsObject)
+
   def test_radixSort(self):
     testData: list = TEST_DATA_7
     expectedValue: list = EXPECTED_7
@@ -358,7 +370,7 @@ class TestClass(unittest.TestCase):
 
   def test_quickSort_withLargerData(self):
     testData: list = TEST_DATA_18
-    # EXPECTED_21 differs one value from other but we compare
+    # EXPECTED_21 differs one value from others but we compare
     # characters as lower() so it does not matter so much
     expectedValue: list = EXPECTED_21
     sortedData = quickSort(testData)
@@ -392,8 +404,15 @@ class TestClass(unittest.TestCase):
   def test_heapSort_withLargerData(self):
     self.maxDiff = None
     testData: list = TEST_DATA_22
-    # EXPECTED_21 differs one value from other but we compare
+    # EXPECTED_27 differs one value from others but we compare
     # characters as lower() so it does not matter so much
     expectedValue: list = EXPECTED_27
     sortedData = heapSort(testData)
     self.assertEqual(expectedValue, sortedData)
+
+  def test_hashArray(self):
+    testData: list = TEST_DATA_24
+    hashedArray = hashArray(testData, 1)
+    # Result set is always different
+    # so we expect that the count is equal
+    self.assertEqual(len(testData), len(hashedArray))
