@@ -1,5 +1,6 @@
 import sys
 import math
+import random
 
 def printWordsFromArray(words: list):
   for i in words:
@@ -189,11 +190,19 @@ def hashArray(array: list, randomValue):
   lenOfArray = len(array)
   hashedArray = []
   for i in range(lenOfArray):
-    hashedArray.append(hash(hash(array[i]) + hash(randomValue)))
+    hashValue: str = str(hash(hash(array[i]) + hash(randomValue)))
+    hashedArray.append(hashValue)
   return hashedArray
 
 def randomSort(words: list):
-  placeholder = 1
+  randomValue: float = random.random()
+  hashedWords: list = hashArray(words, randomValue)
+  sortedHashedWords: list = quickSort(hashedWords)
+  sortedDehashedWords: list = []
+  for i in range(len(sortedHashedWords)):
+    originalIndex: int = hashedWords.index(sortedHashedWords[i])
+    sortedDehashedWords.append(words[originalIndex])
+  return sortedDehashedWords
 
 def clearDuplicatedWords(words: list):
   listOfUniqueWords: list = []
@@ -239,7 +248,7 @@ def readFileAndSortWords(fileName: str, isUnique: bool, sortAlgorithm: str):
   elif sortAlgorithm == 'heap':
     sortedFileContent: list = heapSort(fileContentArray)
   elif sortAlgorithm == 'random':
-    placeholder = 1
+    sortedFileContent: list = randomSort(fileContentArray)
   else:
     sortedFileContent: list = lexicographicSort(fileContentArray)
   return sortedFileContent;
