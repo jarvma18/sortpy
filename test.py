@@ -430,4 +430,6 @@ class TestClass(unittest.TestCase):
   def test_randomSort_withLargerData(self):
     testData: list = TEST_DATA_25
     sortedData = randomSort(testData)
+    # Result set is always different
+    # so we expect that the count is equal
     self.assertEqual(len(testData), len(sortedData))
