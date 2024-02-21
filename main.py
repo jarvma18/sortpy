@@ -1,6 +1,7 @@
 import sys
 import math
 import random
+import datetime
 
 def printWordsFromArray(words: list):
   for i in words:
@@ -264,11 +265,14 @@ def readPassedArguments(arguments: list):
   argumentObject: dict = {
     'fileName': lastArgument,
     'isUnique': False,
-    'sortAlgorithm': 'default' # lexicographic
+    'sortAlgorithm': 'default', # lexicographic
+    'captureTime': False
   }
   for i in arguments:
     if i == '-u':
       argumentObject['isUnique'] = True
+    elif i == '-ct':
+      argumentObject['captureTime'] = True
     elif i == 'sort=radix':
       argumentObject['sortAlgorithm'] = 'radix'
     elif i == 'sort=merge':
@@ -286,5 +290,10 @@ arguments: dict = readPassedArguments(sys.argv)
 fileName: str = arguments['fileName']
 isUnique: bool = arguments['isUnique']
 sortAlgorithm: str = arguments['sortAlgorithm']
+captureTime: bool = arguments['captureTime']
+startTime = datetime.datetime.now()
 sortedWords: list = readFileAndSortWords(fileName, isUnique, sortAlgorithm)
+elapsedTime = datetime.datetime.now() - startTime
+if captureTime:
+  print('Elapsed time in sorting was:', elapsedTime.total_seconds() * 1000, 'milliseconds')
 printWordsFromArray(sortedWords)

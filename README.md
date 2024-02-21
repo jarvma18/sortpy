@@ -32,8 +32,33 @@ python3 main.py -u sort=heap words.txt | head -n50
 // Random sort with the -u (unique) option
 python3 main.py -u sort=random words.txt | head -n50
 
+// Basic lexicographic sort with the -u (unique) option and -ct (capture time) option
+python3 main.py -u -ct words.txt | head -n50
+
 // Run unit tests
 python3 -m unittest test.py
+```
+
+## Elapsed time in sorting with different algorithms
+
+```
+Merge with unique
+Elapsed time in sorting was: 768.2 milliseconds
+
+Quick with unique
+Elapsed time in sorting was: 792.917 milliseconds
+
+Random with unique (quick sort)
+Elapsed time in sorting was: 1110.4460000000001 milliseconds
+
+Default comparative algorithm with unique
+Elapsed time in sorting was: 9081.626 milliseconds
+
+Heap with unique
+Elapsed time in sorting was: 14676.664 milliseconds
+
+Radix with unique
+Elapsed time in sorting was: 15633.761 milliseconds
 ```
 
 ## Radix sort

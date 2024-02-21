@@ -98,14 +98,15 @@ TEST_DATA_25: list = ['The', 'Project', 'Gutenberg',\
                       'with', 'almost', 'restrictions',\
                       'whatsoever', 'You', 'may', 'copy',\
                       'it', 'give', 'away', 'or', 're']
+TEST_DATA_26: list = ['main.py', '-u', '-ct', 'words.txt']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
 EXPECTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False,\
-                    'sortAlgorithm': 'default'}
+                    'sortAlgorithm': 'default', 'captureTime': False}
 EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                    'sortAlgorithm': 'default'}
+                    'sortAlgorithm': 'default', 'captureTime': False}
 EXPECTED_7: list = ['A', 'ananas', 'anyones', 'anywhere',\
                     'banana', 'bass', 'The', 'tuple']
 EXPECTED_8: list = ['ananas', 'banana', 'bass', 'basso']
@@ -114,7 +115,7 @@ EXPECTED_9: list = [['tuple', 'The'],\
                     ['bass', 'banana']]
 EXPECTED_10: list = ['ananas', 'banana', 'pineapple']
 EXPECTED_11: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'radix'}
+                     'sortAlgorithm': 'radix', 'captureTime': False}
 EXPECTED_12: list = ['anyone', 'ananas', 'anywhere', 'bass',\
                      'banana', 'tuple', 'The']
 EXPECTED_13: list = ['almost', 'and', 'anyone', 'anywhere',\
@@ -127,7 +128,7 @@ EXPECTED_13: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
 EXPECTED_14: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'merge'}
+                     'sortAlgorithm': 'merge', 'captureTime': False}
 EXPECTED_15: list = ['The', 'bass', 'tuple', 'anyone', 'ananas',\
                      'banana', 'anywhere']
 EXPECTED_16: tuple = ['tuple', 'anyone', 'bass'],\
@@ -145,7 +146,7 @@ EXPECTED_18: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'world', 'You']
 EXPECTED_19: list = [[['ananas'], [['anyone'], ['anywhere']]], ['A'], ['all']]
 EXPECTED_20: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'quick'}
+                     'sortAlgorithm': 'quick', 'captureTime': False}
 EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'Art', 'at', 'away', 'copy', 'cost',\
                      'ebook', 'eBook', 'for', 'give',\
@@ -158,7 +159,7 @@ EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
 EXPECTED_22: tuple = ['tuple', 'anyones', 'bass'],\
                     ['anywhere', 'The', 'banana', 'A']
 EXPECTED_23: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'heap'}
+                     'sortAlgorithm': 'heap', 'captureTime': False}
 EXPECTED_24: list = ['all', 'A', 'anywhere', 'anyone', 'ananas']
 EXPECTED_25: list = ['tuple', 'anyones', 'bass', 'A',\
                      'anywhere', 'The', 'banana', 'ananas']
@@ -174,8 +175,10 @@ EXPECTED_27: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
 EXPECTED_28: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'random'}
+                     'sortAlgorithm': 'random', 'captureTime': False}
 EXPECTED_29: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
+EXPECTED_30: dict = {'fileName': 'words.txt', 'isUnique': True,\
+                    'sortAlgorithm': 'default', 'captureTime': True}
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -283,6 +286,12 @@ class TestClass(unittest.TestCase):
   def test_readPassedArgumentsFilenameUniqueAndRandomsortIsProvided(self):
     testData: list = TEST_DATA_23
     expectedValue: dict = EXPECTED_28
+    argumentsObject: dict = readPassedArguments(testData)
+    self.assertEqual(expectedValue, argumentsObject)
+
+  def test_readPassedArgumentsFilenameAndUniqueAndCaptureTimeIsProvided(self):
+    testData: list = TEST_DATA_26
+    expectedValue: dict = EXPECTED_30
     argumentsObject: dict = readPassedArguments(testData)
     self.assertEqual(expectedValue, argumentsObject)
 
