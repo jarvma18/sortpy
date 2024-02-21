@@ -43,9 +43,9 @@ Bucketing will be done for each character along the way and sorting the elements
 
 I implemented MSD radix sort, so I start with most significant digit and work the elements to the least significant digit. This is because I read that LSD (least significant digit) sorting will work well when you have same length words. My test data words are in different lengths.
 
-![](radix-msd.png)
+![](./images/radix-msd.png)
 
-![](radix-msd-final.png)
+![](./images/radix-msd-final.png)
 
 ## Merge sort
 
@@ -53,7 +53,7 @@ Merge sort is comparison-based sorting algorithm. It is divide-and-conquer algor
 
 Simply the merge sort divides the sortable items and stops dividing when there is nothing to divide anymore (list lengths are 1). Then the items are rearranged in right order.
 
-![](mergesort.png)
+![](./images/mergesort.png)
 
 ## Quick sort
 
@@ -63,7 +63,7 @@ Choose the pivot and then compare the other elements to pivot starting for the s
 
 I implemented the quick sort with pivot that is last element in word array. I chose to do that because it was very common way to implement the quick sort algorithm.
 
-![](quicksort.png)
+![](./images/quicksort.png)
 
 ## Heap sort
 
@@ -80,11 +80,17 @@ Here are some formulas used in tree model:
 # parentNodeIndex = (i - 1) / 2
 ```
 
-![](heap1.png)
-![](heap2.png)
-![](heap3.png)
-![](heap4.png)
-![](heap5.png)
+![](./images/heap1.png)
+![](./images/heap2.png)
+![](./images/heap3.png)
+![](./images/heap4.png)
+![](./images/heap5.png)
 And the process starts again..
 
 ## Random sort
+
+Random sort algorithm is very basic. The original list of sortable items are hashed in same order than original list. It is important to save original lists to memory so we can perform the dehashing operation to the random sorted list after, because otherwise we end up having gibberish items.
+
+I used hash function with alternative random value added to the hash to make it "more random". I used quick sort algorithm to sort the hashed items.
+
+![](./images/random.png)
