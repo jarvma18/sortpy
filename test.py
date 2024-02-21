@@ -27,6 +27,7 @@ from main import swap
 from main import maxHeapify
 from main import heapSort
 from main import hashArray
+from main import randomSort
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -88,6 +89,15 @@ TEST_DATA_22: list = ['The', 'Project', 'Gutenberg',\
                       'it', 'give', 'away', 'or', 're']
 TEST_DATA_23: list = ['main.py', '-u', 'sort=random', 'words.txt']
 TEST_DATA_24: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
+TEST_DATA_25: list = ['The', 'Project', 'Gutenberg',\
+                      'eBook', 'of', 'Art', 'War', 'This',\
+                      'ebook', 'is', 'for', 'the', 'use',\
+                      'anyone', 'anywhere', 'in', 'United',\
+                      'States', 'and', 'most', 'other',\
+                      'parts', 'world', 'at', 'no', 'cost',\
+                      'with', 'almost', 'restrictions',\
+                      'whatsoever', 'You', 'may', 'copy',\
+                      'it', 'give', 'away', 'or', 're']
 EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
@@ -416,3 +426,8 @@ class TestClass(unittest.TestCase):
     # Result set is always different
     # so we expect that the count is equal
     self.assertEqual(len(testData), len(hashedArray))
+
+  def test_randomSort_withLargerData(self):
+    testData: list = TEST_DATA_25
+    sortedData = randomSort(testData)
+    self.assertEqual(len(testData), len(sortedData))
