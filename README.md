@@ -61,6 +61,12 @@ Radix with unique
 Elapsed time in sorting was: 15633.761 milliseconds
 ```
 
+## To Do
+
+Code does the minimum what was required at the moment but there are some things that could be implemented in future.
+
+* 
+
 ## Radix sort
 
 Radix sort, a non-comparative sorting algorithm that avoids comparison by placing elements of sorting into buckets according their radix.
