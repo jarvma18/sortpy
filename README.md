@@ -65,7 +65,13 @@ Elapsed time in sorting was: 15633.761 milliseconds
 
 Code does the minimum what was required at the moment but there are some things that could be implemented in future.
 
-* 
+* More test cases (for example. larger data, different data)
+* Make code more readable (refactor larger functions, place certain parts to own files)
+* Elapsed time testing without unique -u option
+* Unique option -u always removed to unique characters before sorting, should it always be first thing to do?
+* Implemented other algorithms to the tool
+
+These tasks are things that could be implemented later on for learning purpose.
 
 ## Radix sort
 
