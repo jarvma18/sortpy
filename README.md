@@ -7,6 +7,8 @@ Basically this code tries to implement same functionalities as sort tool. I use 
 
 Install python to run this code
 
+Code can be found at main.py and all the test are inside test.py
+
 ## How to run
 
 ```
