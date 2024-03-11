@@ -129,5 +129,6 @@ And the process starts again..
 Random sort algorithm is very basic. The original list of sortable items are hashed in same order than original list. It is important to save original lists to memory so we can perform the dehashing operation to the random sorted list after, because otherwise we end up having gibberish items.
 
 I used hash function with alternative random value added to the hash to make it "more random". I used quick sort algorithm to sort the hashed items.
+(Note. The hashes in picture below should be in lexicographic order but they aren't so the idea was that when doing the hash, then we will sort those in lexicographic order, you'll get the idea..)
 
 ![](./images/random.png)
