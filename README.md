@@ -72,6 +72,7 @@ Code does the minimum what was required at the moment but there are some things 
 * Elapsed time testing without unique -u option
 * Unique option -u always removed to unique characters before sorting, should it always be first thing to do?
 * Implemented other algorithms to the tool
+* Test Cython for better performance
 
 These tasks are things that could be implemented later on for learning purpose.
 
