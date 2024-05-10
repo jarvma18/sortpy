@@ -7,6 +7,8 @@ Basically this code tries to implement same functionalities as sort tool. I use 
 
 Install python to run this code
 
+Code can be found at main.py and all the test are inside test.py
+
 ## How to run
 
 ```
@@ -60,6 +62,19 @@ Elapsed time in sorting was: 14676.664 milliseconds
 Radix with unique
 Elapsed time in sorting was: 15633.761 milliseconds
 ```
+
+## To Do
+
+Code does the minimum what was required at the moment but there are some things that could be implemented in future.
+
+* More test cases (for example. larger data, different data)
+* Make code more readable (refactor larger functions, place certain parts to own files)
+* Elapsed time testing without unique -u option
+* Unique option -u always removed to unique characters before sorting, should it always be first thing to do?
+* Implemented other algorithms to the tool
+* Test Cython for better performance
+
+These tasks are things that could be implemented later on for learning purpose.
 
 ## Radix sort
 
@@ -117,5 +132,6 @@ And the process starts again..
 Random sort algorithm is very basic. The original list of sortable items are hashed in same order than original list. It is important to save original lists to memory so we can perform the dehashing operation to the random sorted list after, because otherwise we end up having gibberish items.
 
 I used hash function with alternative random value added to the hash to make it "more random". I used quick sort algorithm to sort the hashed items.
+(Note. The hashes in picture below should be in lexicographic order but they aren't so the idea was that when doing the hash, then we will sort those in lexicographic order, you'll get the idea..)
 
 ![](./images/random.png)
