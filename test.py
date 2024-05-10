@@ -1,33 +1,34 @@
 import unittest
+import math
+# Prints can be tested with io and sys
 import io
 import sys
-import math
 
-from main import lexicographicSort
-from main import readFile
-from main import readFileAndSortWords
-from main import openFile
-from main import printWordsFromArray
-from main import clearDuplicatedWords
-from main import splitWordsToArray
-from main import checkArgumentLen
-from main import readPassedArguments
-from main import radixSort
-from main import radixBucketSort
-from main import createBuckets
+from main import lexicographic_sort
+from main import read_file
+from main import read_file_and_sort_words
+from main import open_file
+from main import print_words_from_array
+from main import clear_duplicated_words
+from main import split_words_to_array
+from main import check_len_of_arguments
+from main import read_arguments
+from main import radix_sort_msb
+from main import radix_sort_with_buckets
+from main import create_buckets_for_radix
 from main import flatten
-from main import lexicographicSortOnChar
-from main import checkIfIndexIsInRange
-from main import sortWordsByLength
-from main import divideArray
-from main import mergeSort
-from main import quickSort
-from main import divideArrayByIndex
+from main import lexicographic_sort_on_char
+from main import is_index_in_range
+from main import sort_words_by_length
+from main import divide_array
+from main import merge_sort
+from main import quick_sort
+from main import divide_array_by_index
 from main import swap
-from main import maxHeapify
-from main import heapSort
-from main import hashArray
-from main import randomSort
+from main import max_heapify
+from main import heap_sort
+from main import hash_array
+from main import random_sort
 
 TEST_DATA_1: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
 TEST_DATA_2: list = ['e', 'd', 'c', 'c', 'c', 'b', 'a', 'a']
@@ -103,10 +104,10 @@ EXPECTED_1: str = 'a\na\nb\nc\nc\nc\nd\ne\n'
 EXPECTED_2: str = 'Short text'
 EXPECTED_3: list = ['a', 'b', 'c', 'd', 'e']
 EXPECTED_4: list = ['a', 'a', 'b', 'c', 'c', 'c', 'd', 'e']
-EXPECTED_5: dict = {'fileName': 'words.txt', 'isUnique': False,\
-                    'sortAlgorithm': 'default', 'captureTime': False}
-EXPECTED_6: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                    'sortAlgorithm': 'default', 'captureTime': False}
+EXPECTED_5: dict = {'file_name': 'words.txt', 'is_unique': False,\
+                    'sort_algorithm': 'default', 'capture_execution_time': False}
+EXPECTED_6: dict = {'file_name': 'words.txt', 'is_unique': True,\
+                    'sort_algorithm': 'default', 'capture_execution_time': False}
 EXPECTED_7: list = ['A', 'ananas', 'anyones', 'anywhere',\
                     'banana', 'bass', 'The', 'tuple']
 EXPECTED_8: list = ['ananas', 'banana', 'bass', 'basso']
@@ -114,8 +115,8 @@ EXPECTED_9: list = [['tuple', 'The'],\
                     ['anyones', 'ananas','anywhere', 'A'],\
                     ['bass', 'banana']]
 EXPECTED_10: list = ['ananas', 'banana', 'pineapple']
-EXPECTED_11: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'radix', 'captureTime': False}
+EXPECTED_11: dict = {'file_name': 'words.txt', 'is_unique': True,\
+                     'sort_algorithm': 'radix', 'capture_execution_time': False}
 EXPECTED_12: list = ['anyone', 'ananas', 'anywhere', 'bass',\
                      'banana', 'tuple', 'The']
 EXPECTED_13: list = ['almost', 'and', 'anyone', 'anywhere',\
@@ -127,8 +128,8 @@ EXPECTED_13: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'States', 'The', 'the', 'This', 'United',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
-EXPECTED_14: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'merge', 'captureTime': False}
+EXPECTED_14: dict = {'file_name': 'words.txt', 'is_unique': True,\
+                     'sort_algorithm': 'merge', 'capture_execution_time': False}
 EXPECTED_15: list = ['The', 'bass', 'tuple', 'anyone', 'ananas',\
                      'banana', 'anywhere']
 EXPECTED_16: tuple = ['tuple', 'anyone', 'bass'],\
@@ -145,8 +146,8 @@ EXPECTED_18: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
 EXPECTED_19: list = [[['ananas'], [['anyone'], ['anywhere']]], ['A'], ['all']]
-EXPECTED_20: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'quick', 'captureTime': False}
+EXPECTED_20: dict = {'file_name': 'words.txt', 'is_unique': True,\
+                     'sort_algorithm': 'quick', 'capture_execution_time': False}
 EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'Art', 'at', 'away', 'copy', 'cost',\
                      'ebook', 'eBook', 'for', 'give',\
@@ -158,8 +159,8 @@ EXPECTED_21: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'world', 'You']
 EXPECTED_22: tuple = ['tuple', 'anyones', 'bass'],\
                     ['anywhere', 'The', 'banana', 'A']
-EXPECTED_23: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'heap', 'captureTime': False}
+EXPECTED_23: dict = {'file_name': 'words.txt', 'is_unique': True,\
+                     'sort_algorithm': 'heap', 'capture_execution_time': False}
 EXPECTED_24: list = ['all', 'A', 'anywhere', 'anyone', 'ananas']
 EXPECTED_25: list = ['tuple', 'anyones', 'bass', 'A',\
                      'anywhere', 'The', 'banana', 'ananas']
@@ -174,11 +175,11 @@ EXPECTED_27: list = ['almost', 'and', 'anyone', 'anywhere',\
                      'States', 'the', 'The', 'This', 'United',\
                      'use', 'War', 'whatsoever', 'with',\
                      'world', 'You']
-EXPECTED_28: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                     'sortAlgorithm': 'random', 'captureTime': False}
+EXPECTED_28: dict = {'file_name': 'words.txt', 'is_unique': True,\
+                     'sort_algorithm': 'random', 'capture_execution_time': False}
 EXPECTED_29: list = ['ananas', 'A', 'anywhere', 'anyone', 'all']
-EXPECTED_30: dict = {'fileName': 'words.txt', 'isUnique': True,\
-                    'sortAlgorithm': 'default', 'captureTime': True}
+EXPECTED_30: dict = {'file_name': 'words.txt', 'is_unique': True,\
+                    'sort_algorithm': 'default', 'capture_execution_time': True}
 EXCEPTION_1: str = 'File not found, check that the file exists in that path'
 EXCEPTION_2: str = 'Too few arguments, provide at least file name'
 EXCEPTION_3: str = 'Given index is out of range'
@@ -187,258 +188,256 @@ TEST_FILE_2: str = 'testing/short-text.txt'
 TEST_FILE_3: str = 'testing/short-words.txt'
 
 class TestClass(unittest.TestCase):
-  # Prints can be tested with io and sys
-  def test_printWordsFromArray(self):
-    capturedOutput = io.StringIO()
-    sys.stdout = capturedOutput
-    testData: list = TEST_DATA_1
-    expectedValue: str = EXPECTED_1
-    printWordsFromArray(testData)
+  def test_print_words_from_array(self):
+    captured_output = io.StringIO()
+    sys.stdout = captured_output
+    test_data: list = TEST_DATA_1
+    expeted_value: str = EXPECTED_1
+    print_words_from_array(test_data)
     sys.stdout = sys.__stdout__
-    self.assertEqual(expectedValue, capturedOutput.getvalue())
+    self.assertEqual(expeted_value, captured_output.getvalue())
 
-  def test_openNotExistingFile(self):
-    expectionMessage: str = EXCEPTION_1
-    testFile: str = TEST_FILE_1
+  def test_open_not_existing_file(self):
+    exception_message: str = EXCEPTION_1
+    test_file: str = TEST_FILE_1
     with self.assertRaises(Exception) as context:
-      openFile(testFile)
-    self.assertTrue(expectionMessage in str(context.exception))
+      open_file(test_file)
+    self.assertTrue(exception_message in str(context.exception))
 
-  # Here we also test that the file is opened and can be read
-  def test_readFile(self):
-    testFile: str = TEST_FILE_2
-    expectedValue: str = EXPECTED_2
-    readFileContent: str = readFile(testFile)
-    self.assertEqual(expectedValue, readFileContent)
+  def test_read_file(self):
+    test_file: str = TEST_FILE_2
+    expeted_value: str = EXPECTED_2
+    read_file_content: str = read_file(test_file)
+    self.assertEqual(expeted_value, read_file_content)
 
-  def test_sortLexicographically(self):
-    testData: list = TEST_DATA_2
-    expectedValue: list = EXPECTED_4
-    sortedData: list = lexicographicSort(testData)
-    self.assertEqual(expectedValue, sortedData)
+  def test_sort_lexicographically(self):
+    test_data: list = TEST_DATA_2
+    expeted_value: list = EXPECTED_4
+    sorted_data: list = lexicographic_sort(test_data)
+    self.assertEqual(expeted_value, sorted_data)
 
-  def test_readFileAndSortContentWithFalseUniqueness(self):
-    testFile: str = TEST_FILE_3
-    expectedValue: list = EXPECTED_4
-    readAndSortedContent: list = readFileAndSortWords(testFile, False, 'default')
-    self.assertEqual(expectedValue, readAndSortedContent)
+  def test_read_file_and_sort_content_with_false_uniqueness(self):
+    test_file: str = TEST_FILE_3
+    expeted_value: list = EXPECTED_4
+    sorted_content: list = read_file_and_sort_words(test_file, False, 'default')
+    self.assertEqual(expeted_value, sorted_content)
 
-  def test_readFileAndSortContentWithTrueUniqueness(self):
-    testFile: str = TEST_FILE_3
-    expectedValue: list = EXPECTED_3
-    readAndSortedContent: list = readFileAndSortWords(testFile, True, 'default')
-    self.assertEqual(expectedValue, readAndSortedContent)
+  def test_read_file_and_sort_content_with_true_uniqueness(self):
+    test_file: str = TEST_FILE_3
+    expeted_value: list = EXPECTED_3
+    sorted_content: list = read_file_and_sort_words(test_file, True, 'default')
+    self.assertEqual(expeted_value, sorted_content)
 
-  def test_clearDuplicatedWords(self):
-    testData: list = TEST_DATA_1
-    expectedValue: list = EXPECTED_3
-    uniqueList: list = clearDuplicatedWords(testData)
-    self.assertEqual(expectedValue, uniqueList)
+  def test_clear_duplicated_words(self):
+    test_data: list = TEST_DATA_1
+    expeted_value: list = EXPECTED_3
+    unique_list: list = clear_duplicated_words(test_data)
+    self.assertEqual(expeted_value, unique_list)
 
-  def test_splitWordsToArray(self):
-    testData: str = TEST_DATA_3
-    expectedValue: list = EXPECTED_4
-    wordsInArray: list = splitWordsToArray(testData)
-    self.assertEqual(expectedValue, wordsInArray)
+  def test_split_words_to_array(self):
+    test_data: str = TEST_DATA_3
+    expeted_value: list = EXPECTED_4
+    words: list = split_words_to_array(test_data)
+    self.assertEqual(expeted_value, words)
 
-  def test_checkArgumentLenWithTooFewArgs(self):
-    expectionMessage: str = EXCEPTION_2
+  def test_check_argument_len_with_too_few_args(self):
+    exception_message: str = EXCEPTION_2
     with self.assertRaises(Exception) as context:
-      checkArgumentLen(TEST_DATA_4)
-    self.assertTrue(expectionMessage in str(context.exception))
+      check_len_of_arguments(TEST_DATA_4)
+    self.assertTrue(exception_message in str(context.exception))
 
-  def test_readPassedArgumentsFilenameIsProvided(self):
-    testData: list = TEST_DATA_5
-    expectedValue: dict = EXPECTED_5
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test_read_passed_arguments_filename_is_provided(self):
+    test_data: list = TEST_DATA_5
+    expeted_value: dict = EXPECTED_5
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_readPassedArgumentsFilenameAndUniqueIsProvided(self):
-    testData: list = TEST_DATA_6
-    expectedValue: dict = EXPECTED_6
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test_read_passed_arguments_filename_and_unique_is_provided(self):
+    test_data: list = TEST_DATA_6
+    expeted_value: dict = EXPECTED_6
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_readPassedArgumentsFilenameUniqueAndRadixIsProvided(self):
-    testData: list = TEST_DATA_10
-    expectedValue: dict = EXPECTED_11
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test_read_passed_arguments_filename_unique_and_radix_is_provided(self):
+    test_data: list = TEST_DATA_10
+    expeted_value: dict = EXPECTED_11
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_readPassedArgumentsFilenameUniqueAndMergesortIsProvided(self):
-    testData: list = TEST_DATA_13
-    expectedValue: dict = EXPECTED_14
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test_read_passed_arguments_filename_unique_and_mergesort_is_provided(self):
+    test_data: list = TEST_DATA_13
+    expeted_value: dict = EXPECTED_14
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_readPassedArgumentsFilenameUniqueAndQuicksortIsProvided(self):
-    testData: list = TEST_DATA_17
-    expectedValue: dict = EXPECTED_20
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test__read_passed_arguments_filename_unique_and_quicksort_is_provided(self):
+    test_data: list = TEST_DATA_17
+    expeted_value: dict = EXPECTED_20
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_readPassedArgumentsFilenameUniqueAndHeapsortIsProvided(self):
-    testData: list = TEST_DATA_19
-    expectedValue: dict = EXPECTED_23
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test_read_passed_arguments_filename_unique_and_heapsort_is_provided(self):
+    test_data: list = TEST_DATA_19
+    expeted_value: dict = EXPECTED_23
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_readPassedArgumentsFilenameUniqueAndRandomsortIsProvided(self):
-    testData: list = TEST_DATA_23
-    expectedValue: dict = EXPECTED_28
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test_read_passed_arguments_filename_unique_and_randomsort_is_provided(self):
+    test_data: list = TEST_DATA_23
+    expeted_value: dict = EXPECTED_28
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_readPassedArgumentsFilenameAndUniqueAndCaptureTimeIsProvided(self):
-    testData: list = TEST_DATA_26
-    expectedValue: dict = EXPECTED_30
-    argumentsObject: dict = readPassedArguments(testData)
-    self.assertEqual(expectedValue, argumentsObject)
+  def test_read_passed_arguments_filename_and_unique_and_capture_time_is_provided(self):
+    test_data: list = TEST_DATA_26
+    expeted_value: dict = EXPECTED_30
+    argument_object: dict = read_arguments(test_data)
+    self.assertEqual(expeted_value, argument_object)
 
-  def test_radixSort(self):
-    testData: list = TEST_DATA_7
-    expectedValue: list = EXPECTED_7
-    radixSortedData: list = radixSort(testData)
-    self.assertEqual(expectedValue, radixSortedData)
+  def test_radix_sort(self):
+    test_data: list = TEST_DATA_7
+    expeted_value: list = EXPECTED_7
+    sorted_data: list = radix_sort_msb(test_data)
+    self.assertEqual(expeted_value, sorted_data)
 
-  def test_radixSort_withLargerData(self):
-    testData: list = TEST_DATA_12
-    expectedValue: list = EXPECTED_13
-    radixSortedData: list = radixSort(testData)
-    self.assertEqual(expectedValue, radixSortedData)
+  def test_radix_sort_with_larger_data(self):
+    test_data: list = TEST_DATA_12
+    expeted_value: list = EXPECTED_13
+    sorted_data: list = radix_sort_msb(test_data)
+    self.assertEqual(expeted_value, sorted_data)
 
-  def test_radixBucketSort_earlyReturn(self):
-    bucketSortedData = radixBucketSort(['ananas'], 1, 1, False)
-    self.assertEqual(['ananas'], bucketSortedData)
+  def test_radix_bucket_sort_early_return(self):
+    sorted_data = radix_sort_with_buckets(['ananas'], 1, 1, False)
+    self.assertEqual(['ananas'], sorted_data)
 
-  def test_radixBucketSort_lexAndReturn(self):
-    testData: list = TEST_DATA_9
-    expectedValue: list = EXPECTED_10
-    bucketSortedData: list = radixBucketSort(testData, 3, 0, True)
-    self.assertEqual(expectedValue, bucketSortedData)
+  def test_radix_bucket_sort_lex_and_return(self):
+    test_data: list = TEST_DATA_9
+    expeted_value: list = EXPECTED_10
+    sorted_data: list = radix_sort_with_buckets(test_data, 3, 0, True)
+    self.assertEqual(expeted_value, sorted_data)
 
-  def test_createBuckets(self):
-    testData: list = TEST_DATA_7
-    expectedValue: list = EXPECTED_9
-    buckets: list = createBuckets(testData, 0)
-    self.assertEqual(expectedValue, buckets)
+  def test_create_buckets(self):
+    test_data: list = TEST_DATA_7
+    expeted_value: list = EXPECTED_9
+    buckets: list = create_buckets_for_radix(test_data, 0)
+    self.assertEqual(expeted_value, buckets)
 
   def test_flatten(self):
-    testData: list = TEST_DATA_8
-    expectedValue: list = EXPECTED_8
-    flattenedArray: list = flatten(testData)
-    self.assertEqual(expectedValue, flattenedArray)
+    test_data: list = TEST_DATA_8
+    expeted_value: list = EXPECTED_8
+    flattened_array: list = flatten(test_data)
+    self.assertEqual(expeted_value, flattened_array)
 
-  def test_lexicographicSortOnChar(self):
-    testData: list = TEST_DATA_11
-    expectedValue: list = EXPECTED_12
-    sortedData: list = lexicographicSortOnChar(testData, 0)
-    self.assertEqual(expectedValue, sortedData)
+  def test_lexicographic_sort_on_char(self):
+    test_data: list = TEST_DATA_11
+    expeted_value: list = EXPECTED_12
+    sorted_data: list = lexicographic_sort_on_char(test_data, 0)
+    self.assertEqual(expeted_value, sorted_data)
 
-  def test_checkIfIndexIsInRange_notInRange(self):
+  def test_check_if_index_is_not_in_range(self):
     arr1: list = TEST_DATA_1
     arr2: list = TEST_DATA_4
-    expectedValue: bool = False
-    indexInRange: bool = checkIfIndexIsInRange(arr1, arr2, 100)
-    self.assertEqual(expectedValue, indexInRange)
+    expeted_value: bool = False
+    index_in_range: bool = is_index_in_range(arr1, arr2, 100)
+    self.assertEqual(expeted_value, index_in_range)
 
-  def test_checkIfIndexIsInRange_inRange(self):
+  def test_check_if_index_is_in_range(self):
     arr1: list = TEST_DATA_1
     arr2: list = TEST_DATA_4
-    expectedValue: bool = True
-    indexInRange: bool = checkIfIndexIsInRange(arr1, arr2, 0)
-    self.assertEqual(expectedValue, indexInRange)
+    expeted_value: bool = True
+    index_in_range: bool = is_index_in_range(arr1, arr2, 0)
+    self.assertEqual(expeted_value, index_in_range)
 
-  def test_checkIfIndexIsInRange_notInRangeOfOther(self):
+  def test_check_if_index_is_not_in_range_of_other(self):
     arr1: list = TEST_DATA_1
     arr2: list = TEST_DATA_4
-    expectedValue: bool = False
-    indexInRange: bool = checkIfIndexIsInRange(arr1, arr2, 2)
-    self.assertEqual(expectedValue, indexInRange)
+    expeted_value: bool = False
+    index_in_range: bool = is_index_in_range(arr1, arr2, 2)
+    self.assertEqual(expeted_value, index_in_range)
 
-  def test_sortWordsByLength(self):
-    testData: list = TEST_DATA_11
-    expectedValue: list = EXPECTED_15
-    shortestWordToLongest: bool = sortWordsByLength(testData)
-    self.assertEqual(expectedValue, shortestWordToLongest)
+  def test_sortw_words_by_length(self):
+    test_data: list = TEST_DATA_11
+    expeted_value: list = EXPECTED_15
+    sorted_array: bool = sort_words_by_length(test_data)
+    self.assertEqual(expeted_value, sorted_array)
 
-  def test_divideArray(self):
-    testData: list = TEST_DATA_11
-    expectedValue: tuple = EXPECTED_16
-    dividedArrray: tuple = divideArray(testData)
-    self.assertEqual(expectedValue, dividedArrray)
+  def test_divide_array(self):
+    test_data: list = TEST_DATA_11
+    expeted_value: tuple = EXPECTED_16
+    divided_array: tuple = divide_array(test_data)
+    self.assertEqual(expeted_value, divided_array)
 
-  def test_mergeSort(self):
-    testData: list = TEST_DATA_14
-    expectedValue: list = EXPECTED_17
-    mergeSort(testData)
-    self.assertEqual(expectedValue, testData)
+  def test_merge_sort(self):
+    test_data: list = TEST_DATA_14
+    expeted_value: list = EXPECTED_17
+    merge_sort(test_data)
+    self.assertEqual(expeted_value, test_data)
 
-  def test_mergeSort_withLargerData(self):
-    testData: list = TEST_DATA_15
-    expectedValue: list = EXPECTED_18
-    mergeSort(testData)
-    self.assertEqual(expectedValue, testData)
+  def test_merge_sort_with_larger_data(self):
+    test_data: list = TEST_DATA_15
+    expeted_value: list = EXPECTED_18
+    merge_sort(test_data)
+    self.assertEqual(expeted_value, test_data)
 
-  def test_radixBucketSort(self):
-    testData: list = TEST_DATA_16
-    maxLen: int = len(max(testData, key=len))
-    expectedValue: list = EXPECTED_19
-    radixBucketSortedData: list = radixBucketSort(testData, maxLen, 1, False)
-    self.assertEqual(expectedValue, radixBucketSortedData)
+  def test_radix_bucket_sort(self):
+    test_data: list = TEST_DATA_16
+    max_len: int = len(max(test_data, key=len))
+    expected_value: list = EXPECTED_19
+    sorted_data: list = radix_sort_with_buckets(test_data, max_len, 1, False)
+    self.assertEqual(expected_value, sorted_data)
 
-  def test_quickSort_withLargerData(self):
-    testData: list = TEST_DATA_18
+  def test_quick_sort_with_larger_data(self):
+    test_data: list = TEST_DATA_18
     # EXPECTED_21 differs one value from others but we compare
     # characters as lower() so it does not matter so much
-    expectedValue: list = EXPECTED_21
-    sortedData = quickSort(testData)
-    self.assertEqual(expectedValue, sortedData)
+    expeted_value: list = EXPECTED_21
+    sorted_data = quick_sort(test_data)
+    self.assertEqual(expeted_value, sorted_data)
 
-  def test_divideByArrayIndex(self):
-    testData: list = TEST_DATA_14
-    expectedValue: list = EXPECTED_22
-    dividedArray = divideArrayByIndex(testData, 3)
-    self.assertEqual(expectedValue, dividedArray)
+  def test_divide_by_array_index(self):
+    test_data: list = TEST_DATA_14
+    expeted_value: list = EXPECTED_22
+    divided_array = divide_array_by_index(test_data, 3)
+    self.assertEqual(expeted_value, divided_array)
 
-  def test_swapFirstAndLastItemInArray(self):
-    testData: list = TEST_DATA_20
-    expectedValue: list = EXPECTED_24
-    swappedArray = swap(testData, 0, len(testData) - 1)
-    self.assertEqual(expectedValue, swappedArray)
+  def test_swap_first_and_last_item_in_array(self):
+    test_data: list = TEST_DATA_20
+    expeted_value: list = EXPECTED_24
+    swapped_array = swap(test_data, 0, len(test_data) - 1)
+    self.assertEqual(expeted_value, swapped_array)
 
-  def test_maxHeapifyLastNonLeafNode(self):
-    testData: list = TEST_DATA_21
-    expectedValue: list = EXPECTED_25
-    lastNonLeafIndex: int = math.floor(len(testData) / 2 - 1)
-    maxHeapifiedArray: list = maxHeapify(testData, lastNonLeafIndex)
-    self.assertEqual(expectedValue, maxHeapifiedArray)
+  def test_max_heapify_last_non_leaf_node(self):
+    test_data: list = TEST_DATA_21
+    expeted_value: list = EXPECTED_25
+    last_non_leaf_index: int = math.floor(len(test_data) / 2 - 1)
+    max_heapified_array: list = max_heapify(test_data, last_non_leaf_index)
+    self.assertEqual(expeted_value, max_heapified_array)
 
-  def test_maxHeapifyRootNode(self):
-    testData: list = TEST_DATA_21
-    expectedValue: list = EXPECTED_26
-    maxHeapifiedArray: list = maxHeapify(testData, 0)
-    self.assertEqual(expectedValue, maxHeapifiedArray)
+  def test_max_heapify_root_node(self):
+    test_data: list = TEST_DATA_21
+    expeted_value: list = EXPECTED_26
+    max_heapified_array: list = max_heapify(test_data, 0)
+    self.assertEqual(expeted_value, max_heapified_array)
 
-  def test_heapSort_withLargerData(self):
-    self.maxDiff = None
-    testData: list = TEST_DATA_22
+  def test_heap_sort_with_larger_data(self):
+    self.max_diff = None
+    test_data: list = TEST_DATA_22
     # EXPECTED_27 differs one value from others but we compare
     # characters as lower() so it does not matter so much
-    expectedValue: list = EXPECTED_27
-    sortedData = heapSort(testData)
-    self.assertEqual(expectedValue, sortedData)
+    expeted_value: list = EXPECTED_27
+    sorted_data = heap_sort(test_data)
+    self.assertEqual(expeted_value, sorted_data)
 
-  def test_hashArray(self):
-    testData: list = TEST_DATA_24
-    hashedArray = hashArray(testData, 1)
+  def test_hash_array(self):
+    test_data: list = TEST_DATA_24
+    hashed_array = hash_array(test_data, 1)
     # Result set is always different
     # so we expect that the count is equal
-    self.assertEqual(len(testData), len(hashedArray))
+    self.assertEqual(len(test_data), len(hashed_array))
 
-  def test_randomSort_withLargerData(self):
-    testData: list = TEST_DATA_25
-    sortedData = randomSort(testData)
+  def test_random_sort_with_larger_data(self):
+    test_data: list = TEST_DATA_25
+    sorted_data = random_sort(test_data)
     # Result set is always different
     # so we expect that the count is equal
-    self.assertEqual(len(testData), len(sortedData))
+    self.assertEqual(len(test_data), len(sorted_data))
